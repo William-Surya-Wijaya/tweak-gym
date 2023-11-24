@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/dbconnection");
-const { User, MembershipPackage } = require("./index");
+const User = require("./User");
+const MembershipPackage = require("./MembershipPackage");
 
 const MemberTransaction = sequelize.define(
   "MemberTransaction",
@@ -18,7 +19,7 @@ const MemberTransaction = sequelize.define(
         key: "user_id",
       },
     },
-    id_membership_pack: {
+    id_memb_pack: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -45,4 +46,4 @@ const MemberTransaction = sequelize.define(
   }
 );
 
-module.exports = { MemberTransaction };
+module.exports = MemberTransaction;

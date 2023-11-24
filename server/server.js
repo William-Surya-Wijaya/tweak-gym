@@ -4,7 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./src/controller/routes");
-
+const { verifyKeyMiddleware } = require("./src/middleware/verify_key");
 const app = express();
 
 const staticPathPublic = path.resolve("public");
@@ -21,6 +21,7 @@ app.use(
 app.use(express.json());
 app.use(express.static(staticPathPublic));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(verifyKeyMiddleware);
 app.use("/", routes);
 
 // Start the server

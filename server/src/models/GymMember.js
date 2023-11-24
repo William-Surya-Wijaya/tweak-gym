@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/dbconnection");
-const { User, MemberTransaction } = require("./");
+const User = require("./User");
+const MemberTransaction = require("./MemberTransaction");
 
 const GymMember = sequelize.define(
   "GymMember",
@@ -45,4 +46,4 @@ const GymMember = sequelize.define(
   }
 );
 
-module.exports = { GymMember };
+module.exports = GymMember;

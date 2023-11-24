@@ -3,6 +3,7 @@ const controller = require("./controller");
 const validator = require("../middleware/register_validation.js");
 const verifyRecaptcha = require("../middleware/verifyReCaptcha.js");
 const { dataUserLogin } = require("../middleware/logincheck.js");
+const { verifyUserToken } = require("../authentication/clientrequest.js");
 
 const router = express.Router();
 
@@ -28,10 +29,16 @@ router.post(
   controller.register_account
 );
 router.post(
-  "/login-shopiin-account",
+  "/login-tweak-account",
   limiter,
   verifyRecaptcha,
   dataUserLogin,
   controller.login_account
+);
+router.post(
+  "/register-tweak-member",
+  limiter,
+  verifyUserToken,
+  controller.member_transaction
 );
 module.exports = router;

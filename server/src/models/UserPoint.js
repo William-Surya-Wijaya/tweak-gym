@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/dbconnection");
-const { User } = require("./");
+const User = require("./User");
 
 const UserPoint = sequelize.define(
   "UserPoint",
@@ -29,4 +29,4 @@ const UserPoint = sequelize.define(
   }
 );
 
-module.exports = { UserPoint };
+module.exports = UserPoint;

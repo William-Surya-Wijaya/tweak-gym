@@ -40,4 +40,4 @@ const GymSession = sequelize.define(
   }
 );
 
-module.exports = { GymSession };
+module.exports = GymSession;

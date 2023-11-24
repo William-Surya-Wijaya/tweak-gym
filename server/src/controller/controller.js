@@ -1,9 +1,13 @@
-const { addUserData } = require("../repositories/UserRepo");
+const { addUserData, checkUserData } = require("../repositories/UserRepo");
 const {
   createKey,
   sendVerificationEmail,
 } = require("../utils/sendEmailVerification");
-const bcrypt = require("bcrypt");
+const { hashPassword } = require("../utils/hashedpass");
+const { createTransactionID } = require("../utils/createtransactionid");
+const create_transaction = require("../repositories/member_trans");
+const { snap } = require("../config/connection_midtrans");
+const { getMemberProduct } = require("../repositories/memb_package");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -23,8 +27,8 @@ const register_account = async (req, res) => {
   try {
     const { user_email, user_password, user_name, user_phonenumb } = req.body;
     console.log(user_email, user_password, user_phonenumb, user_name);
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(user_password, saltRounds);
+
+    const hashedPassword = await hashPassword(user_password);
     const verifToken = createKey(user_email);
 
     await addUserData(
@@ -44,15 +48,80 @@ const register_account = async (req, res) => {
 
 const login_account = async (req, res) => {
   try {
+    const secret_key = createTransactionID();
+    const token = await hashPassword(
+      req.body.user_email +
+        "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d" +
+        secret_key
+    );
     const dataUser = {
-      Email: req.body.Email,
+      user_id: req.body.user_id,
+      email: req.body.user_email,
+      token: token,
     };
     req.session.user = dataUser;
 
-    res.status(200).json({ dataUser });
+    res.status(200).json({ dataUser, message: "Berhasil login account" });
   } catch (err) {
     console.error(err);
   }
 };
 
-module.exports = { home_page, post_test, register_account, login_account };
+const member_transaction = async (req, res) => {
+  try {
+    const { user_email, memb_package, net_amount, purchase_date } = req.body;
+    const dataUser = await checkUserData(user_email);
+    console.log();
+    const transactionID = createTransactionID();
+    console.log(transactionID);
+
+    await create_transaction(
+      transactionID,
+      dataUser.user_id,
+      memb_package,
+      net_amount,
+      purchase_date
+    );
+    const parameter = {
+      transaction_details: {
+        order_id: transactionID,
+        gross_amount: net_amount,
+      },
+
+      customer_details: {
+        first_name: dataUser.Name,
+        email: dataUser.Email,
+        phone: dataUser.PhoneNumber,
+      },
+    };
+    snap.createTransaction(parameter).then((transaction) => {
+      let transactionToken = transaction.token;
+      res.status(200).json({ message: "Berhasil", token: transactionToken });
+    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+const member_transaction_update = async (req, res) => {
+  try {
+    const order_id = req.body.order_id;
+    const status_code = req.body.status_code;
+    const gross_amount = req.body.gross_amount;
+    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3O";
+    const signature_key = req.body.signature_key;
+    const transaction_status = req.body.transaction_status;
+
+    const hashed = sha512(order_id + status_code + gross_amount + serverKey);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  home_page,
+  post_test,
+  register_account,
+  login_account,
+  member_transaction,
+};

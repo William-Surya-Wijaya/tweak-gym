@@ -24,9 +24,9 @@ const MembershipPackage = sequelize.define(
     },
   },
   {
-    tableName: "membershipackage", // Make sure it matches the table name in your SQL definition
+    tableName: "membershippackage", // Make sure it matches the table name in your SQL definition
     timestamps: false,
   }
 );
 
-module.exports = { MembershipPackage };
+module.exports = MembershipPackage;

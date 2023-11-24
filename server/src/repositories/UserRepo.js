@@ -1,4 +1,4 @@
-const { User } = require("../models/User");
+const { User } = require("../models/");
 
 async function addUserData(
   NamaUser,
@@ -27,11 +27,12 @@ async function checkUserData(EmailUser, Password) {
     const dataUser = await User.findOne({
       where: {
         user_email: EmailUser,
-        user_password: Password,
       },
+      raw: true,
     });
+
     if (dataUser) {
-      return true;
+      return dataUser;
     } else {
       return false;
     }

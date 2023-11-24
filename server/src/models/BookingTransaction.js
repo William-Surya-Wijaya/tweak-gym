@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/dbconnection");
-const { User, GymSession } = require("./");
+const User = require("./User");
+const GymSession = require("./GymSession");
 
 const BookingTransaction = sequelize.define(
   "BookingTransaction",
@@ -45,4 +46,4 @@ const BookingTransaction = sequelize.define(
   }
 );
 
-module.exports = { BookingTransaction };
+module.exports = BookingTransaction;
