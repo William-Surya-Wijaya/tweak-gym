@@ -18,4 +18,21 @@ async function create_transaction(
   });
 }
 
-module.exports = create_transaction;
+async function update_transaction(TransId) {
+  try {
+    await MemberTransaction.update(
+      {
+        transaction_status: "paid",
+      },
+      {
+        where: {
+          id_transaction_memb: TransId,
+        },
+      }
+    );
+  } catch (err) {
+    return err.message;
+  }
+}
+
+module.exports = { create_transaction, update_transaction };

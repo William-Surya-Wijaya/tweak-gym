@@ -41,4 +41,15 @@ router.post(
   verifyUserToken,
   controller.member_transaction
 );
+router.post(
+  "/payment-for-member-register",
+  limiter,
+  verifyUserToken,
+  controller.member_transaction
+);
+router.post(
+  "/transaction-update-payment",
+  limiter,
+  controller.transaction_update
+);
 module.exports = router;

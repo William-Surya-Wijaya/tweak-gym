@@ -5,9 +5,13 @@ const {
 } = require("../utils/sendEmailVerification");
 const { hashPassword } = require("../utils/hashedpass");
 const { createTransactionID } = require("../utils/createtransactionid");
-const create_transaction = require("../repositories/member_trans");
+const {
+  create_transaction,
+  update_transaction,
+} = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
 const { getMemberProduct } = require("../repositories/memb_package");
+const sha512 = require("js-sha512");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -103,16 +107,22 @@ const member_transaction = async (req, res) => {
   }
 };
 
-const member_transaction_update = async (req, res) => {
+const transaction_update = async (req, res) => {
   try {
     const order_id = req.body.order_id;
     const status_code = req.body.status_code;
     const gross_amount = req.body.gross_amount;
     const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3O";
     const signature_key = req.body.signature_key;
-    const transaction_status = req.body.transaction_status;
 
     const hashed = sha512(order_id + status_code + gross_amount + serverKey);
+    if (hashed == signature_key) {
+      if (order_id.charAt(0) === "T") {
+        await update_transaction(order_id);
+      } else if (order_id.charAt(0) === "P") {
+        // TODO:: create update_transaction point in the repository
+      }
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -124,4 +134,5 @@ module.exports = {
   register_account,
   login_account,
   member_transaction,
+  transaction_update,
 };
