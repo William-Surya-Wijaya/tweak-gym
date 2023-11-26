@@ -5,6 +5,7 @@ const verifyRecaptcha = require("../middleware/verifyReCaptcha.js");
 const { dataUserLogin } = require("../middleware/logincheck.js");
 const { verifyUserToken } = require("../authentication/clientrequest.js");
 const verifyKeyMiddleware = require("../middleware/verify_key");
+const checkIsMember = require("../middleware/memberchecker.js");
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ const limiter = rateLimit({
 });
 
 // GET Route
-router.get("/", limiter, verifyKeyMiddleware, controller.home_page);
-router.get("/verify");
+router.get("/", limiter, controller.home_page);
+router.get("/verify", controller.verify_email);
 
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
@@ -34,8 +35,9 @@ router.post(
   "/login-tweak-account",
   limiter,
   verifyKeyMiddleware,
-  verifyRecaptcha,
+  //verifyRecaptcha,
   dataUserLogin,
+  checkIsMember,
   controller.login_account
 );
 router.post(
@@ -45,13 +47,7 @@ router.post(
   verifyUserToken,
   controller.member_transaction
 );
-router.post(
-  "/payment-for-member-register",
-  limiter,
-  verifyKeyMiddleware,
-  verifyUserToken,
-  controller.member_transaction
-);
+
 router.post(
   "/transaction-update-payment",
   limiter,

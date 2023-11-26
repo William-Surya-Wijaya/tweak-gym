@@ -7,7 +7,7 @@ const MemberTransaction = sequelize.define(
   "MemberTransaction",
   {
     id_transaction_memb: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(100),
       primaryKey: true,
       allowNull: false,
     },

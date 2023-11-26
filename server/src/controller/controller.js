@@ -1,4 +1,8 @@
-const { addUserData, checkUserData } = require("../repositories/UserRepo");
+const {
+  addUserData,
+  checkUserData,
+  checkUserToken,
+} = require("../repositories/UserRepo");
 const {
   createKey,
   sendVerificationEmail,
@@ -8,9 +12,11 @@ const { createTransactionID } = require("../utils/createtransactionid");
 const {
   create_transaction,
   update_transaction,
+  findUserTransaction,
 } = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
 const { getMemberProduct } = require("../repositories/memb_package");
+const { createMember } = require("../repositories/gymmember");
 const sha512 = require("js-sha512");
 
 const home_page = (req, res) => {
@@ -42,6 +48,7 @@ const register_account = async (req, res) => {
       user_phonenumb,
       verifToken
     );
+
     sendVerificationEmail(user_email, verifToken);
 
     res.status(200).json({ message: "Berhasil Mendaftarkan Akun" });
@@ -76,13 +83,48 @@ const member_transaction = async (req, res) => {
     const { user_email, memb_package, net_amount, purchase_date } = req.body;
     const dataUser = await checkUserData(user_email);
     console.log();
-    const transactionID = createTransactionID();
+    const transactionID = createTransactionID("T");
     console.log(transactionID);
 
     await create_transaction(
       transactionID,
       dataUser.user_id,
       memb_package,
+      net_amount,
+      purchase_date
+    );
+    const parameter = {
+      transaction_details: {
+        order_id: transactionID,
+        gross_amount: net_amount,
+      },
+
+      customer_details: {
+        first_name: dataUser.Name,
+        email: dataUser.Email,
+        phone: dataUser.PhoneNumber,
+      },
+    };
+    snap.createTransaction(parameter).then((transaction) => {
+      let transactionToken = transaction.token;
+      res.status(200).json({ message: "Berhasil", token: transactionToken });
+    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+const point_transaction = async (req, res) => {
+  try {
+    const { user_email, point_amount, net_amount, purchase_date } = req.body;
+    const dataUser = await checkUserData(user_email);
+    console.log();
+    const transactionID = createTransactionID("P");
+    console.log(transactionID);
+
+    await create_transaction(
+      transactionID,
+      dataUser.user_id,
       net_amount,
       purchase_date
     );
@@ -121,6 +163,15 @@ const transaction_update = async (req, res) => {
       if (transaction_status === "settlement") {
         if (order_id.charAt(0) === "T") {
           await update_transaction(order_id);
+          const dataTransaction = await findUserTransaction(order_id);
+          const memb_package_data = await getMemberProduct(
+            dataTransaction.id_memb_pack
+          );
+          await createMember(
+            dataTransaction.user_id,
+            order_id,
+            memb_package_data.package_duration
+          );
         } else if (order_id.charAt(0) === "P") {
           // TODO:: create update_transaction point in the repository
         }
@@ -136,6 +187,10 @@ const transaction_update = async (req, res) => {
 const verify_email = async (req, res) => {
   try {
     // TODO : create a verification token through req.query
+    const { token } = req.query;
+    const dataUser = await checkUserToken(token);
+
+    res.status(200).json({ message: "berhasil" });
   } catch (err) {}
 };
 

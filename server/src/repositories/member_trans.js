@@ -1,4 +1,4 @@
-const MemberTransaction = require("../models/MemberTransaction");
+const { MemberTransaction } = require("../models/");
 
 async function create_transaction(
   TransId,
@@ -35,4 +35,22 @@ async function update_transaction(TransId) {
   }
 }
 
-module.exports = { create_transaction, update_transaction };
+const findUserTransaction = async (trans_id) => {
+  try {
+    const userData = await MemberTransaction.findOne({
+      where: {
+        id_transaction_memb: trans_id,
+      },
+      raw: true,
+    });
+    return userData;
+  } catch (err) {
+    res.status(200).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  create_transaction,
+  update_transaction,
+  findUserTransaction,
+};

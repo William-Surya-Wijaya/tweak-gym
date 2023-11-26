@@ -7,7 +7,7 @@ const PointTransaction = sequelize.define(
   "PointTransaction",
   {
     id_transaction_point: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(100),
       primaryKey: true,
       autoIncrement: true,
     },

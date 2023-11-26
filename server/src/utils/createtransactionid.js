@@ -1,4 +1,4 @@
-const createTransactionID = () => {
+const createTransactionID = (transaction_sype) => {
   const now = new Date();
   const year = now.getFullYear();
   const month = (now.getMonth() + 1).toString().padStart(2, "0");
@@ -8,7 +8,7 @@ const createTransactionID = () => {
   const seconds = now.getSeconds().toString().padStart(2, "0");
   const milliseconds = now.getMilliseconds().toString().padStart(3, "0");
 
-  return (transactionID = `T${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`);
+  return (transactionID = `${transaction_sype}${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`);
 };
 
 module.exports = {

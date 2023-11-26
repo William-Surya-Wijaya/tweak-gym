@@ -9,6 +9,7 @@ const GymMember = sequelize.define(
     id_member: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
     },
     user_id: {

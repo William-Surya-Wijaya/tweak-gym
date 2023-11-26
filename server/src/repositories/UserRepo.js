@@ -22,7 +22,7 @@ async function addUserData(
   }
 }
 
-async function checkUserData(EmailUser, Password) {
+async function checkUserData(EmailUser) {
   try {
     const dataUser = await User.findOne({
       where: {
@@ -41,4 +41,25 @@ async function checkUserData(EmailUser, Password) {
   }
 }
 
-module.exports = { addUserData, checkUserData };
+async function checkUserToken(usertoken) {
+  const userToUpdate = await User.findOne({
+    where: {
+      veriftoken: usertoken,
+    },
+    raw: true,
+  });
+  if (userToUpdate.user_isverified == 1) {
+    return false;
+  }
+  await User.update(
+    { user_isverified: 1 },
+    {
+      where: {
+        veriftoken: usertoken,
+      },
+    }
+  );
+
+  return userToUpdate;
+}
+module.exports = { addUserData, checkUserData, checkUserToken };
