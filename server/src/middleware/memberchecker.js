@@ -1,0 +1,1 @@
+const { GymMember } = require("../models/");

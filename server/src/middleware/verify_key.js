@@ -12,4 +12,4 @@ const verifyKeyMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = { verifyKeyMiddleware };
+module.exports = verifyKeyMiddleware;

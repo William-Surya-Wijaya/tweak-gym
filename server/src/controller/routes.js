@@ -4,6 +4,7 @@ const validator = require("../middleware/register_validation.js");
 const verifyRecaptcha = require("../middleware/verifyReCaptcha.js");
 const { dataUserLogin } = require("../middleware/logincheck.js");
 const { verifyUserToken } = require("../authentication/clientrequest.js");
+const verifyKeyMiddleware = require("../middleware/verify_key");
 
 const router = express.Router();
 
@@ -15,14 +16,15 @@ const limiter = rateLimit({
 });
 
 // GET Route
-router.get("/", limiter, controller.home_page);
+router.get("/", limiter, verifyKeyMiddleware, controller.home_page);
 router.get("/verify");
 
 // POST Route
-router.post("/test", limiter, controller.post_test);
+router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
   "/register-tweak-account",
   limiter,
+  verifyKeyMiddleware,
   verifyRecaptcha,
   validator.registrationValidationRules,
   validator.validateRegistration,
@@ -31,6 +33,7 @@ router.post(
 router.post(
   "/login-tweak-account",
   limiter,
+  verifyKeyMiddleware,
   verifyRecaptcha,
   dataUserLogin,
   controller.login_account
@@ -38,12 +41,14 @@ router.post(
 router.post(
   "/register-tweak-member",
   limiter,
+  verifyKeyMiddleware,
   verifyUserToken,
   controller.member_transaction
 );
 router.post(
   "/payment-for-member-register",
   limiter,
+  verifyKeyMiddleware,
   verifyUserToken,
   controller.member_transaction
 );

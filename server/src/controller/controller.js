@@ -112,20 +112,31 @@ const transaction_update = async (req, res) => {
     const order_id = req.body.order_id;
     const status_code = req.body.status_code;
     const gross_amount = req.body.gross_amount;
-    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3O";
     const signature_key = req.body.signature_key;
+    const transaction_status = req.body.transaction_status;
+    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3O";
 
     const hashed = sha512(order_id + status_code + gross_amount + serverKey);
     if (hashed == signature_key) {
-      if (order_id.charAt(0) === "T") {
-        await update_transaction(order_id);
-      } else if (order_id.charAt(0) === "P") {
-        // TODO:: create update_transaction point in the repository
+      if (transaction_status === "settlement") {
+        if (order_id.charAt(0) === "T") {
+          await update_transaction(order_id);
+        } else if (order_id.charAt(0) === "P") {
+          // TODO:: create update_transaction point in the repository
+        }
       }
     }
+
+    res.status(200).json({ message: transaction_status });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+};
+
+const verify_email = async (req, res) => {
+  try {
+    // TODO : create a verification token through req.query
+  } catch (err) {}
 };
 
 module.exports = {
@@ -135,4 +146,5 @@ module.exports = {
   login_account,
   member_transaction,
   transaction_update,
+  verify_email,
 };
