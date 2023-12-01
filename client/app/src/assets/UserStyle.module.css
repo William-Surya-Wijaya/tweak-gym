@@ -2,6 +2,198 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-body{
-  color: black;
+.invert{
+  filter: invert(1);
+}
+
+.bgPrimary {
+  background-color: #000000;
+}
+
+.bgSecondary {
+  background-color: #1c1c1c;
+}
+
+.bgMuted {
+  background-color: #242424;
+}
+
+.bgLight {
+  background-color: #d7fd52;
+}
+
+.textBlack {
+  color: #000000;
+}
+
+.textWhite {
+  color: #FFFFFF;
+}
+
+.topbarContainer{
+  height: 70px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoutTop{
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dbdbdb;
+  border-radius: 5px;
+  filter: invert(1);
+}
+
+.topbarBG{
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  position: relative;
+  border-radius: 0px 0px 20px 20px;
+}
+
+.topbar{
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top:0;
+  z-index: 11;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.gymName{
+  color: #d7fd52;
+  font-weight: bold;
+}
+
+.topProfile{
+  width: 65px;
+  margin: 5px;
+  border-radius: 100px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topLogo{
+  border-radius: 150px;
+  justify-content: center;
+  align-items: center;
+  background-color: #dbdbdb;
+  width: 100px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+}
+
+.textHighlight{
+  margin:10px;
+  font-weight: bold;
+}
+
+.topUserName{
+  padding: 0 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #242424;
+  border-radius: 5px;
+}
+
+.navbarContainer{
+  height: 100px;
+  position: fixed;
+  bottom:0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.navbarBG{
+  width: 100%;
+  height: 38px;
+  background-color: black;
+  position: relative;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.navbar{
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  bottom:0;
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.qrButton{
+  width: 70px;
+  border-radius: 100px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navButton{
+  color: white;
+  background-color: #242424;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.navButton.active{
+  color: #d7fd52;
+  background-color: #242424;
+}
+
+.dashboardHeader{
+  width: 100%;
+}
+
+.dashboardHeader > img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: center;
+  filter: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+}
+
+.dashboardHeader::before {
+  content: "";
+  position: fixed;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+  width: 100%;
+  height: 500px;
+  z-index: 0;
+}
+
+@media (max-width: 800px) {
+
+}
+
+@media (max-width: 480px) {
+
 }

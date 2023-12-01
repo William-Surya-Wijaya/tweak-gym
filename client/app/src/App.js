@@ -11,6 +11,7 @@ import {
   UserRegister,
   UserOrderSummary,
   UserNavBar,
+  UserTopBar,
 
   // ! ADMIN PAGES
   AdminDashboard,
@@ -22,6 +23,8 @@ import {
 
 function App() {
   return (
+    <div className="flex items-center w-screen h-screen justify-center bg-slate-200 overflow-auto">
+    <div className={`relative h-screen bg-gradient-to-b xs:w-[100%] ss:w-[100%] sm:w-[100%] md:w-[100%]  lg:w-[30%]`}>
     <Router>
       <Routes>
         {/* ========== USER ========== */}
@@ -43,6 +46,7 @@ function App() {
         <Route path="/" element={
           <>
             <UserDashboard />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -51,6 +55,7 @@ function App() {
         <Route path="/gym-session" element={
           <>
             <UserGymSession />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -66,6 +71,7 @@ function App() {
         <Route path="/user-poin" element={
           <>
             <UserPoin />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -74,6 +80,7 @@ function App() {
         <Route path="/history" element={
           <>
             <UserHistory />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -83,6 +90,7 @@ function App() {
         <Route path="/admin/" element={
           <>
             <AdminDashboard />
+            <UserTopBar />
             <AdminNavBar />
           </>
         } />
@@ -91,6 +99,7 @@ function App() {
         <Route path="/admin/transaction" element={
           <>
             <AdminTransaction />
+            <UserTopBar />
             <AdminNavBar />
           </>
         } />
@@ -99,6 +108,7 @@ function App() {
         <Route path="/admin/member" element={
           <>
             <AdminMember />
+            <UserTopBar />
             <AdminNavBar />
           </>
         } />
@@ -113,6 +123,8 @@ function App() {
         <Route path="*" element={<div>Route Not Found</div>} />
       </Routes>
     </Router>
+    </div>
+    </div>
   );
 }
 
