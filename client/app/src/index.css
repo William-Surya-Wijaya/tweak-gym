@@ -8,6 +8,36 @@ body{
   background-color: azure;
 }
 
+/* Hide the default scrollbar */
+* {
+  scrollbar-width: 0px;
+  scrollbar-color: transparent transparent;
+  overflow: scroll; 
+}
+
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent; 
+  border-radius: 6px;
+  width: 0px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0px;
+}
+
+
 .handphoneView{
   background-color: grey;
 }

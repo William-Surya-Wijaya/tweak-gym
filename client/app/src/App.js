@@ -24,7 +24,7 @@ import {
 function App() {
   return (
     <div className="flex items-center w-screen h-screen justify-center bg-slate-200 overflow-auto">
-    <div className={`relative h-screen bg-gradient-to-b xs:w-[100%] ss:w-[100%] sm:w-[100%] md:w-[100%]  lg:w-[30%]`}>
+    <div className={`relative h-screen bg-gradient-to-b xs:w-[100%] ss:w-[100%] sm:w-[100%] md:w-[100%] lg:w-[100%] xl:w-[30%]`}>
     <Router>
       <Routes>
         {/* ========== USER ========== */}

@@ -1,11 +1,11 @@
 import styles from "../assets/UserStyle.module.css";
 function UserNavBar() {
   return(
-    <div className={`${styles.navbarContainer} xs:w-[100%] ss:w-[100%] sm:w-[100%] md:w-[100%] lg:w-[30%]`}>
-      <div className={`${styles.navbar} ${styles.textWhite} xs:w-[100%] ss:w-[100%] sm:w-[100%] md:w-[100%] lg:w-[30%]`}>
+    <div className={`${styles.navbarContainer}`}>
+      <div className={`${styles.navbar} ${styles.textWhite}`}>
         <div className={`${styles.navButton} ${styles.active}`}>Home</div>
-        <div className={`${styles.navButton}`}>Session</div>
-        <div className={`${styles.qrButton} ${styles.bgLight}`}><svg xmlns="http://www.w3.org/2000/svg" height="35" width="35" viewBox="0 0 448 512"><path d="M0 80C0 53.5 21.5 32 48 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80zM64 96v64h64V96H64zM0 336c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336zm64 16v64h64V352H64zM304 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H304c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48zm80 64H320v64h64V96zM256 304c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s7.2-16 16-16s16 7.2 16 16v96c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s-7.2-16-16-16s-16 7.2-16 16v64c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V304zM368 480a16 16 0 1 1 0-32 16 16 0 1 1 0 32zm64 0a16 16 0 1 1 0-32 16 16 0 1 1 0 32z"/></svg></div>
+        <div className={`${styles.navButton}`}>Booking</div>
+        <div className={`${styles.qrButton} ${styles.bgLight}`}><svg xmlns="http://www.w3.org/2000/svg" height="35" width="35" viewBox="0 0 448 512"><path d="M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-13.6 22.9-8.9 35.3S50.7 288 64 288H175.5L98.6 467.4c-5.9 13.7-1.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 13.6-22.9 8.9-35.3s-16.6-20.7-30-20.7H272.5L349.4 44.6z"/></svg></div>
         <div className={`${styles.navButton}`}>History</div>
         <div className={`${styles.navButton}`}>Poin</div>
       </div>
