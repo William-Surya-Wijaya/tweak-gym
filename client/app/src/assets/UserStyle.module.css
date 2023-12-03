@@ -90,7 +90,6 @@
   border-radius: 150px;
   justify-content: center;
   align-items: center;
-  background-color: #dbdbdb;
   width: 100px;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -250,7 +249,7 @@
 
 .buttonLight{
   color: black;
-  background-color: #d7fd52;
+  background-color: #d7fd52 !important;
   border-radius: 50px;
   height: 45px;
   width: 150px;
@@ -263,7 +262,7 @@
 }
 
 .buttonLight:hover{
-  background-color: black;
+  background-color: black !important;
   color: #d7fd52;
   cursor: pointer;
 }
@@ -604,6 +603,68 @@
 
 .userOrderSummary .footer{
   margin-bottom: 0px;
+}
+
+.loginPage form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPage{
+  height: 100%;
+  background-color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPage .textTitle{
+  margin-bottom: 1em;
+}
+
+.loginPage .subTitle{
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.loginPage .textContent{
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.loginPage form{
+  margin-top: 1em;
+}
+
+.formGroup{
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.formGroup > label{
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.formGroup > input{
+  width: 300px;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.formGroup > input:focus{
+  outline: none;
+}
+
+.loginPage .buttonLight{
+  margin: 1em 0 0 0;
 }
 
 @media (max-width: 1300px) {
