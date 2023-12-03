@@ -259,6 +259,13 @@
   align-items: center;
   font-weight: bold;
   font-size: 18px;
+  transition: 0.3s ease-in-out;
+}
+
+.buttonLight:hover{
+  background-color: black;
+  color: #d7fd52;
+  cursor: pointer;
 }
 
 .buttonTransparent{
@@ -273,6 +280,14 @@
   align-items: center;
   font-weight: bold;
   font-size: 18px;
+  transition: all 0.3s ease-in-out;
+}
+
+.buttonTransparent:hover{
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  cursor: pointer;
 }
 
 .topbarContainer,.topbar,.navbarContainer,.navbar{
@@ -552,6 +567,13 @@
   transition: 0.5s ease-in-out;
 }
 
+.item > .row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
 .footer{
   display: flex;
   justify-content: center;
@@ -562,6 +584,26 @@
   margin-bottom: 30px;
   padding-top: 25px;
   color:rgb(189, 189, 189);
+}
+
+.userOrderSummary{
+  height: 100vh;
+}
+
+.userOrderSummary .section{
+  height: 700px;
+}
+
+.userOrderSummary .membershipGallery *{
+  position: static;
+}
+
+.userOrderSummary .item{
+  height: 150px;
+}
+
+.userOrderSummary .footer{
+  margin-bottom: 0px;
 }
 
 @media (max-width: 1300px) {

@@ -1,6 +1,15 @@
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 
 function UserGymSession() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const openOrderSummary = (idSession) => {
+    navigate(`/order-summary/${idSession}`);
+  };
+
   return(
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>
@@ -17,7 +26,7 @@ function UserGymSession() {
       </div>
       <div className={`${styles.section}`}>
         <div className={`${styles.gymSessionGalerry}`}>
-          <div className={`${styles.item}`}>
+          <div className={`${styles.item}`} onClick={() => openOrderSummary(1)}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>FIT CYCLE</div>
               <div className={`${styles.sessionDetail}`}>

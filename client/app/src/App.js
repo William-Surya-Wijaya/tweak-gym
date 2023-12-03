@@ -71,7 +71,7 @@ function App() {
         } />
 
         { /* User Order Summary */}
-        <Route path="/order-summary" element={
+        <Route path="/order-summary/:idSession" element={
           <>
             <UserOrderSummary />
           </>
