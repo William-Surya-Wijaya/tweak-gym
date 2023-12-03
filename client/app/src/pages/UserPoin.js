@@ -40,7 +40,7 @@ function UserPoin() {
               </div>
             </div>
             <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>LIHAT TIKET QR</div>
+              <div className={`${styles.rotateText}`}>TAMBAH POIN</div>
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
@@ -53,7 +53,7 @@ function UserPoin() {
               </div>
             </div>
             <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>LIHAT TIKET QR</div>
+              <div className={`${styles.rotateText}`}>TAMBAH POIN</div>
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
@@ -66,7 +66,7 @@ function UserPoin() {
               </div>
             </div>
             <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>LIHAT TIKET QR</div>
+              <div className={`${styles.rotateText}`}>TAMBAH POIN</div>
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
@@ -79,7 +79,7 @@ function UserPoin() {
               </div>
             </div>
             <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>LIHAT TIKET QR</div>
+              <div className={`${styles.rotateText}`}>TAMBAH POIN</div>
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>

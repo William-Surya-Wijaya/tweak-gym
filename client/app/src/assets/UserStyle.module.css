@@ -392,6 +392,13 @@
   color: white;
 }
 
+.gymSessionSubTitle .textContent{
+  color:rgb(189, 189, 189);
+  font-size: 20px;
+  width: 80%;
+  text-align: center;
+}
+
 .gymSessionHeader::before {
   content: "";
   position: absolute;
@@ -515,6 +522,34 @@
 
 .sessionDetail .capacity{
   font-weight: bold;
+}
+
+.membershipGallery{
+  margin-bottom: 2em;
+}
+
+.membershipGallery .item,.membershipGallery .galleryContent,.membershipGallery img{
+  height: 100px;
+}
+
+.membershipGallery .galleryContent > *{
+  width: 400px;
+}
+
+.membershipGallery .galleryContent{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.membershipGallery > div:before{
+  content: "";
+  position: absolute;
+  background-color: rgba(28, 28, 28, 0.7);
+  width: 0;
+  height: 0;
+  z-index: 1;
+  transition: 0.5s ease-in-out;
 }
 
 .footer{

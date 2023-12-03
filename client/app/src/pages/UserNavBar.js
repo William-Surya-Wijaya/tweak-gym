@@ -15,7 +15,7 @@ function UserNavBar() {
   };
 
   const handleQrButtonClick = () => {
-    navigate('/');
+    navigate('/membership');
   };
 
   const handleHistoryClick = () => {
