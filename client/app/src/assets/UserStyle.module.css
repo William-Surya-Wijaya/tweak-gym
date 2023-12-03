@@ -422,6 +422,7 @@
   position: absolute;
   z-index: 2;
   border-radius: 5px;
+  transition: 0.5s ease-in-out;
 }
 
 .rotateText{
@@ -433,6 +434,7 @@
   height: 32px;
   letter-spacing: 1px;
   display: flex;
+  text-align: center;
 }
 
 .gymSessionGalerry > div > div > svg{
@@ -445,7 +447,24 @@
   background-color: rgba(28, 28, 28, 0.7);
   width: 450px;
   height: 200px;
-  z-index: 0;
+  z-index: 1;
+  transition: 0.5s ease-in-out;
+}
+
+.gymSessionGalerry > div:hover:before{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.gymSessionGalerry .item img{
+  transition: 1s ease-in-out;
+}
+
+.gymSessionGalerry .item:hover img{
+  transform: scale(1.1);
+}
+
+.gymSessionGalerry .item:hover .galleryBanner{
+  background-color: #d7fd52;
 }
 
 .gymSessionGalerryContent {

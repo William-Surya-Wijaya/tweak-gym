@@ -10,6 +10,7 @@ import {
   UserLogin,
   UserRegister,
   UserOrderSummary,
+  UserMember,
   UserNavBar,
   UserTopBar,
 
@@ -46,6 +47,15 @@ function App() {
         <Route path="/" element={
           <>
             <UserDashboard />
+            <UserTopBar />
+            <UserNavBar />
+          </>
+        } />
+
+        {/* User Member */}
+        <Route path="/membership" element={
+          <>
+            <UserMember />
             <UserTopBar />
             <UserNavBar />
           </>
