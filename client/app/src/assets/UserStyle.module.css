@@ -31,13 +31,12 @@
 }
 
 .topbarContainer{
-  height: 70px;
+  height:100px;
   position: fixed;
   top: 0;
   z-index: 10;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  background: linear-gradient(to bottom,  rgba(28, 28, 28, 1) 0%, rgba(28, 28, 28, 0.8) 50%, rgba(28, 28, 28, 0) 100%);
 }
 
 .logoutTop{
@@ -53,7 +52,7 @@
 
 .topbarBG{
   width: 100%;
-  height: 100%;
+  height: 70px;
   background-color: black;
   position: relative;
   border-radius: 0px 0px 20px 20px;
@@ -121,6 +120,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  background: linear-gradient(to top,  rgba(28, 28, 28, 1) 0%, rgba(28, 28, 28, 0.8) 50%, rgba(28, 28, 28, 0) 100%);
 }
 
 .navbarBG{
@@ -163,11 +163,22 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  transition: 0.25s ease-in-out;
+}
+
+.navButton:hover{
+  background-color: #4b4b4b;
+  cursor: pointer;
 }
 
 .navButton.active{
   color: #d7fd52;
   background-color: #242424;
+}
+
+.navButton.active:hover{
+  background-color: #4b4b4b;
+  cursor: pointer;
 }
 
 .dashboardHeader{
@@ -272,7 +283,7 @@
   color: white;
 }
 .dashboardSubTitle .textContent{
-  color: rgb(213, 213, 213);
+  color:rgb(189, 189, 189);
   font-size: 20px;
   width: 80%;
   text-align: center;
@@ -297,10 +308,11 @@
 .section{
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  padding: 2em 1em 2em 1em;
   justify-content: center;
   align-items: center;
   color: white;
+  gap: 2em;
 }
 
 .section:nth-child(even){
@@ -311,9 +323,191 @@
   background-color: #1c1c1c;
 }
 
-.owl-carousel {
+.dashboardGallery{
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.dashboardGallery > div{
+  border-radius: 5px;
+  width: 450px;
+  height: 300px;
+}
+
+.dashboardGallery > div > div > svg{
+  filter: invert(1);
+}
+
+.dashboardGallery > div:before{
+  content: "";
+  position: absolute;
+  background-color: rgba(28, 28, 28, 0.7);
+  width: 450px;
+  height: 300px;
+  z-index: 0;
+}
+
+.galleryContent {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  z-index: 1;
+  position: absolute;
+  height: calc(300px - 4em);
+  justify-content: center;
+}
+
+.galleryContent > .textTitle{
+  margin-top: 30px;
+  font-size: 28px;
+}
+
+.dashboardGallery > div:not(:nth-child(1)) > div > .textTitle{
+  color:white;
+}
+
+.galleryContent > .textContent{
+  color:rgb(189, 189, 189);
+  width: 440px;
+}
+
+.galleryContent > img{
+  width: 100px;
+  filter: brightness(0) invert(1);
+}
+
+.gymSessionHeader{
+  height: 300px;
+}
+
+.gymSessionSubTitle{
+  width: 100%;
+  height: 300px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.gymSessionHeader::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(28, 28, 28, 1) 0%, rgba(28, 28, 28, 0.8) 20%, rgba(28, 28, 28, 0.5) 100%);
+  width: 100%;
+  height: 300px;
+  z-index: 0;
+}
+
+.gymSessionGalerry{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.gymSessionGalerry > div{
+  border-radius: 5px;
+  width: 450px;
+  height: 200px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.galleryBanner{
+  width: 40px;
+  height: 200px;
+  background-color: #a3be3f;
+  position: absolute;
+  z-index: 2;
+  border-radius: 5px;
+}
+
+.rotateText{
+  transform: rotate(90deg);
+  transform-origin: left bottom;
+  color: black;
+  font-weight: bold;
+  width: 300px;
+  height: 32px;
+  letter-spacing: 1px;
+  display: flex;
+}
+
+.gymSessionGalerry > div > div > svg{
+  filter: invert(1);
+}
+
+.gymSessionGalerry > div:before{
+  content: "";
+  position: absolute;
+  background-color: rgba(28, 28, 28, 0.7);
+  width: 450px;
+  height: 200px;
+  z-index: 0;
+}
+
+.gymSessionGalerryContent {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 3.5em -1em -1em;
+  z-index: 1;
+  position: absolute;
+  height: calc(200px - 2em);
+  justify-content: space-between;
+}
+
+.gymSessionGalerryContent > .textTitle{
+  font-size: 28px;
+}
+
+.gymSessionGalerry > div > div > .textTitle{
+  color:white;
+}
+
+.gymSessionGalerryContent > .textContent{
+  color:rgb(189, 189, 189);
+  width: 380px;
+}
+
+.gymSessionGalerry img{
+  width: 100%;
+}
+
+.sessionDetail{
+  width: 380px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+}
+
+.sessionDetail .time{
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  padding: 0.2em 0.8em;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.sessionDetail .capacity{
+  font-weight: bold;
+}
+
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100px;
+  background-color: black !important;
+  margin-bottom: 30px;
+  padding-top: 25px;
+  color:rgb(189, 189, 189);
 }
 
 @media (max-width: 1300px) {
