@@ -25,10 +25,10 @@ router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
   "/register-tweak-account",
   limiter,
-  verifyKeyMiddleware,
-  verifyRecaptcha,
-  validator.registrationValidationRules,
-  validator.validateRegistration,
+  // verifyKeyMiddleware,
+  // verifyRecaptcha,
+  // validator.registrationValidationRules,
+  // validator.validateRegistration,
   controller.register_account
 );
 router.post(
