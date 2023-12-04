@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", routes);
 
 // Start the server
-const port = 3000;
+const port = 3100;
 app.listen(port, () => {
   console.log(`>> Server is running on http://localhost:${port}`);
 });
