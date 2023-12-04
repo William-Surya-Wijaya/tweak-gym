@@ -23,7 +23,7 @@ function UserRegister() {
         {
           headers: {
             "x-api-key":
-              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d", // Gantilah dengan nilai API key yang sesuai
+              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
           },
         }
       );
@@ -62,35 +62,51 @@ function UserRegister() {
 
       <form name="login-form" onSubmit={handleSubmit}>
         <div className={`${styles.formGroup}`}>
-          <label htmlFor="fullname">Full Name:</label>
+          <label htmlFor="user_email">Email:</label>
           <input
             type="text"
-            id="fullname"
-            name="fullname"
+            id="user_email"
+            name="user_email"
             required
             minLength="8"
-          />
-        </div>
-        <div className={`${styles.formGroup}`}>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            required
-            minLength="8"
-            value={formData.username}
+            value={formData.user_email}
             onChange={handleInputChange}
           />
         </div>
         <div className={`${styles.formGroup}`}>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="user_email">Phone Number:</label>
+          <input
+            type="text"
+            id="user_phonenumb"
+            name="user_phonenumb"
+            required
+            minLength="8"
+            value={formData.user_phonenumb}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_name">Username:</label>
+          <input
+            type="text"
+            id="user_name"
+            name="user_name"
+            required
+            minLength="8"
+            value={formData.user_name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_password">Password:</label>
           <input
             type="password"
             id="password"
-            name="password"
+            name="user_password"
             required
             minLength="8"
+            value={formData.user_password}
+            onChange={handleInputChange}
           />
         </div>
         <div className={`${styles.formGroup}`}>
