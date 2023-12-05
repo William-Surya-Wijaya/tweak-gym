@@ -19,7 +19,7 @@ const limiter = rateLimit({
 // GET Route
 router.get("/", limiter, controller.home_page);
 router.get("/verify", controller.verify_email);
-
+router.get("/get-gym-session", controller.data_gym_session);
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
