@@ -1,13 +1,15 @@
+import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 
 function UserOrderSummary() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const currentPath = location.pathname;
-  
   const { idSession } = useParams();
+
+  const [formData] = useState({
+    user_email: idSession,
+  });
 
   const backToGymSession = () => {
     navigate('/gym-session');
