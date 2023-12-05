@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 
-function UserOrderSummary() {
+function UserOrderSummary({items}) {
   const navigate = useNavigate();
   const { idSession } = useParams();
 

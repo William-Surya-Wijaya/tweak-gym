@@ -1,14 +1,38 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import styles from "../assets/UserStyle.module.css";
+import { UserOrderSummary } from './UserOrderSummary';
 
 function UserGymSession() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const openOrderSummary = (idSession) => {
-    navigate(`/order-summary/${idSession}`);
-  };
+  const [dataSession, setDataSession] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3100/get-gym-session', {
+          headers: {
+            'x-api-key': '6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d',
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        setDataSession(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
 
   return(
     <div className={`${styles.userDashboard}`}>
@@ -26,7 +50,18 @@ function UserGymSession() {
       </div>
       <div className={`${styles.section}`}>
         <div className={`${styles.gymSessionGalerry}`}>
-          <div className={`${styles.item}`} onClick={() => openOrderSummary(1)}>
+        {console.log(dataSession)}
+        {dataSession && Array.isArray(dataSession) && dataSession.length > 0 && (
+            <div>
+              <p>Data from session:</p>
+              <ul>
+                {dataSession.map((item, index) => (
+                  <li key={index}>{JSON.stringify(item.session_name)}asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className={`${styles.item}`}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>FIT CYCLE</div>
               <div className={`${styles.sessionDetail}`}>
