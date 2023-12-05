@@ -1,12 +1,20 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../assets/UserStyle.module.css";
 import { UserOrderSummary } from './UserOrderSummary';
+import { SessionCard } from './components/SessionCard';
 
 function UserGymSession() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const currentPath = location.pathname;
+
+  const sessionDetail = useRef(null);
+  const [gymOrderModal, setShowModal] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
+
+  const handleOpenModal = (sessionData) => {
+    setSelectedSession(sessionData);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = ()=> {setShowModal(false)};
 
   const [dataSession, setDataSession] = useState(null);
 
@@ -50,58 +58,34 @@ function UserGymSession() {
       </div>
       <div className={`${styles.section}`}>
         <div className={`${styles.gymSessionGalerry}`}>
-        {console.log(dataSession)}
-        {dataSession && Array.isArray(dataSession) && dataSession.length > 0 && (
-            <div>
-              <p>Data from session:</p>
-              <ul>
-                {dataSession.map((item, index) => (
-                  <li key={index}>{JSON.stringify(item.session_name)}asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</li>
-                ))}
-              </ul>
-            </div>
+          {dataSession && dataSession.dataGymSession && Array.isArray(dataSession.dataGymSession) && dataSession.dataGymSession.length > 0 && (
+            dataSession.dataGymSession.map((item, index) => (
+              <SessionCard
+                key={index}
+                sessionName={(item.session_name)}
+                sessionStart={(item.session_start)}
+                sessionEnd={(item.session_end)}
+                sessionDate={(item.session_date)}
+                sessionCapacity={(item.session_capacity)}
+                sessionPrice={(item.session_price)}
+                onClick={handleOpenModal}
+                onClose={handleCloseModal}
+              />
+            ))
           )}
-          <div className={`${styles.item}`}>
-            <div className={`${styles.gymSessionGalerryContent}`}>
-              <div className={`${styles.textTitle}`}>FIT CYCLE</div>
-              <div className={`${styles.sessionDetail}`}>
-                <div className={`${styles.time}`}><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg> 09:00 - 28 / DEC</div>
-                <div className={`${styles.capacity}`}>13 Slot</div>
-              </div>
-            </div>
-            <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>BOOK SEKARANG</div>
-            </div>
-            <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
-          </div>
-          <div className={`${styles.item}`}>
-            <div className={`${styles.gymSessionGalerryContent}`}>
-              <div className={`${styles.textTitle}`}>BODY COMBAT</div>
-              <div className={`${styles.sessionDetail}`}>
-                <div className={`${styles.time}`}><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg> 09:00 - 28 / DEC</div>
-                <div className={`${styles.capacity}`}>24 Slot</div>
-              </div>
-            </div>
-            <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>BOOK SEKARANG</div>
-            </div>
-            <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
-          </div>
-          <div className={`${styles.item}`}>
-            <div className={`${styles.gymSessionGalerryContent}`}>
-              <div className={`${styles.textTitle}`}>ZUMBA</div>
-              <div className={`${styles.sessionDetail}`}>
-                <div className={`${styles.time}`}><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg> 09:00 - 28 / DEC</div>
-                <div className={`${styles.capacity}`}>25 Slot</div>
-              </div>
-            </div>
-            <div className={`${styles.galleryBanner}`}>
-              <div className={`${styles.rotateText}`}>BOOK SEKARANG</div>
-            </div>
-            <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
-          </div>
         </div>
       </div>
+      {gymOrderModal && selectedSession && (
+        <UserOrderSummary
+          sessionName={selectedSession.sessionName}
+          sessionStart={selectedSession.sessionStart}
+          sessionEnd={selectedSession.sessionEnd}
+          sessionDate={selectedSession.sessionDate}
+          sessionCapacity={selectedSession.sessionCapacity}
+          sessionPrice={(selectedSession.sessionPrice)}
+          onClose={handleCloseModal}
+        />
+      )}
       <div className={`${styles.footer}`}>
         <div>&copy; 2023 Tweak Gym. All rights reserved.</div>
       </div>
