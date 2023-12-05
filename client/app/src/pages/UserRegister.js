@@ -18,18 +18,12 @@ function UserRegister() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/register-tweak-account",
-        formData,
-        {
-          headers: {
-            "x-api-key":
-              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
-          },
-        }
+        "http://localhost:3100/register-tweak-account",
+        formData
       );
 
       if (response.status === 200) {
-        // Lakukan sesuatu setelah permintaan berhasil
+        alert("success");
       }
     } catch (error) {
       // Tangani kesalahan
@@ -74,6 +68,18 @@ function UserRegister() {
           />
         </div>
         <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="user_password"
+            required
+            minLength="8"
+            value={formData.user_password}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
           <label htmlFor="user_email">Phone Number:</label>
           <input
             type="text"
@@ -94,18 +100,6 @@ function UserRegister() {
             required
             minLength="8"
             value={formData.user_name}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={`${styles.formGroup}`}>
-          <label htmlFor="user_password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="user_password"
-            required
-            minLength="8"
-            value={formData.user_password}
             onChange={handleInputChange}
           />
         </div>
