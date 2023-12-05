@@ -17,6 +17,7 @@ const {
 const { snap } = require("../config/connection_midtrans");
 const { getMemberProduct } = require("../repositories/memb_package");
 const { createMember } = require("../repositories/gymmember");
+const { get_gym_session } = require("../repositories/gymsession");
 const sha512 = require("js-sha512");
 
 const home_page = (req, res) => {
@@ -195,6 +196,15 @@ const verify_email = async (req, res) => {
   } catch (err) {}
 };
 
+const data_gym_session = async (req, res) => {
+  try {
+    const dataGymSession = await get_gym_session();
+    res.status(200).json({ dataGymSession });
+  } catch (error) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 module.exports = {
   home_page,
   post_test,
@@ -203,4 +213,5 @@ module.exports = {
   member_transaction,
   transaction_update,
   verify_email,
+  data_gym_session,
 };
