@@ -1,5 +1,12 @@
 const { User } = require("../models/");
 
+const getDataUser = async () => { 
+  const UserData = await User.findAll({ // mengambil semua elemen pada
+      raw:true,
+  })
+  return UserDatar;
+}
+
 async function addUserData(
   NamaUser,
   EmailUser,
@@ -78,4 +85,4 @@ async function checkUserToken(usertoken) {
 
   return userToUpdate;
 }
-module.exports = { findUserEmail, addUserData, checkUserData, checkUserToken };
+module.exports = { findUserEmail, addUserData, checkUserData, checkUserToken, getDataUser };

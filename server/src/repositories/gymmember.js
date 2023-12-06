@@ -1,5 +1,12 @@
 const { GymMember } = require("../models");
 
+const getGymData = async () => {
+  const dataUser = await GymMember.findAll({ // mengambil data gym member
+      raw:true,
+  })
+  return GymData;
+}
+
 const findUserId = async (user_id) => {
   try {
     const dataMember = await GymMember.findOne({
@@ -55,4 +62,4 @@ const createMember = async (user_id, transaction_id, duration) => {
   });
 };
 
-module.exports = { findUserId, destroyMembership, createMember };
+module.exports = { findUserId, destroyMembership, createMember, getGymData };
