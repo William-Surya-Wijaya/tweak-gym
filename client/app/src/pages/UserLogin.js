@@ -16,31 +16,24 @@ function UserLogin({ setSessionData }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
+  axios.defaults.withCredentials = true;
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3100/login-tweak-account",
-        formData,
-        {
+      axios
+        .post("http://localhost:3100/login-tweak-account", formData, {
           headers: {
             "x-api-key":
               "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
           },
-          withCredentials: true,
-        }
-      );
-      if (response.status === 200) {
-        // // Assuming response.data contains user session data
-        const userSessionData = response.data;
-
-        // // Save the session data
-        setSessionData("userSession", userSessionData);
-
-        // Navigate to the home page or another route
-        navigate("/");
-      }
+        })
+        .then((res) => {
+          if (res.data.dataUser) {
+            navigate("/");
+          } else {
+            alert("Terjadi Kesalahan");
+          }
+        });
     } catch (error) {
       alert(error.message);
       console.log(error);

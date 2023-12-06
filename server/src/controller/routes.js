@@ -22,7 +22,7 @@ router.get("/verify", controller.verify_email);
 router.get(
   "/get-gym-session",
   // limiter,
-  verifyKeyMiddleware,
+  // verifyKeyMiddleware,
   // verifyUserToken,
   controller.data_gym_session
 );
