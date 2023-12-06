@@ -200,6 +200,7 @@ const verify_email = async (req, res) => {
 const data_gym_session = async (req, res) => {
   try {
     const dataGymSession = await get_gym_session();
+
     const user_id = req.session.user.user_id;
     const isMember = await findUserId(user_id);
     if (isMember) {
