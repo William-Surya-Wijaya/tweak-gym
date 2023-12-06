@@ -32,7 +32,7 @@ router.post(
   "/register-tweak-account",
   limiter,
   verifyKeyMiddleware,
-  verifyRecaptcha,
+  // verifyRecaptcha,
   validator.registrationValidationRules,
   validator.validateRegistration,
   controller.register_account
@@ -43,7 +43,7 @@ router.post(
   verifyKeyMiddleware,
   //verifyRecaptcha,
   dataUserLogin,
-  checkIsMember,
+  // checkIsMember,
   controller.login_account
 );
 router.post(

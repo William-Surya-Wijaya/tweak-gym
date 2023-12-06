@@ -19,14 +19,20 @@ function UserRegister() {
     try {
       const response = await axios.post(
         "http://localhost:3100/register-tweak-account",
-        formData
+        formData,
+        {
+          headers: {
+            "x-api-key":
+              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
+          },
+        }
       );
 
       if (response.status === 200) {
         alert("success");
       }
     } catch (error) {
-      // Tangani kesalahan
+      alert(error);
     }
   };
 

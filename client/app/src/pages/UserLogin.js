@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function UserLogin() {
+function UserLogin({ setSessionData }) {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     user_email: "",
     user_password: "",
   });
+
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -26,12 +31,20 @@ function UserLogin() {
       );
 
       if (response.status === 200) {
-        // Lakukan sesuatu setelah permintaan berhasil
+        // Assuming response.data contains user session data
+        const userSessionData = response.data;
+
+        // Save the session data
+        setSessionData("userSession", userSessionData);
+
+        // Navigate to the home page or another route
+        navigate('/');
       }
     } catch (error) {
-      // Tangani kesalahan
+      alert(error);
     }
   };
+
 
   return (
     <div className={`${styles.loginPage}`}>
