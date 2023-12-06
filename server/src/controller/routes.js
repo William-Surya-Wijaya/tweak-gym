@@ -19,7 +19,13 @@ const limiter = rateLimit({
 // GET Route
 router.get("/", limiter, controller.home_page);
 router.get("/verify", controller.verify_email);
-router.get("/get-gym-session", controller.data_gym_session);
+router.get(
+  "/get-gym-session",
+  limiter,
+  verifyKeyMiddleware,
+  verifyUserToken,
+  controller.data_gym_session
+);
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
@@ -47,7 +53,13 @@ router.post(
   verifyUserToken,
   controller.member_transaction
 );
-
+router.post(
+  "/booking-session",
+  limiter,
+  verifyKeyMiddleware,
+  verifyUserToken,
+  controller.book_session
+);
 router.post(
   "/transaction-update-payment",
   limiter,

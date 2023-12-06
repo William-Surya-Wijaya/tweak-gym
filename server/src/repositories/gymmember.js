@@ -18,6 +18,8 @@ const findUserId = async (user_id) => {
   }
 };
 
+
+
 const destroyMembership = async (user_id) => {
   await GymMember.destroy({
     where: {
@@ -53,4 +55,4 @@ const createMember = async (user_id, transaction_id, duration) => {
   });
 };
 
-module.exports = { findUserId, destroyMembership, createMember };
+module.exports = { findUserId, findUserEmail, destroyMembership, createMember };

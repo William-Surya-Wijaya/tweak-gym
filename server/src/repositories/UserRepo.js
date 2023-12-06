@@ -40,7 +40,23 @@ async function checkUserData(EmailUser) {
     console.error(err);
   }
 }
-
+const findUserEmail = async (user_email) => {
+  try {
+    const dataMember = await GymMember.findOne({
+      where: {
+        user_email: user_email,
+      },
+      raw: true,
+    });
+    if (dataMember) {
+      return dataMember;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    res.send(400).json({ message: e.message });
+  }
+};
 async function checkUserToken(usertoken) {
   const userToUpdate = await User.findOne({
     where: {
@@ -62,4 +78,4 @@ async function checkUserToken(usertoken) {
 
   return userToUpdate;
 }
-module.exports = { addUserData, checkUserData, checkUserToken };
+module.exports = { findUserEmail, addUserData, checkUserData, checkUserToken };

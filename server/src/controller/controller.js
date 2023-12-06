@@ -1,6 +1,7 @@
 const {
   addUserData,
   checkUserData,
+  findUserEmail,
   checkUserToken,
 } = require("../repositories/UserRepo");
 const {
@@ -16,7 +17,7 @@ const {
 } = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
 const { getMemberProduct } = require("../repositories/memb_package");
-const { createMember } = require("../repositories/gymmember");
+const { createMember, findUserId } = require("../repositories/gymmember");
 const { get_gym_session } = require("../repositories/gymsession");
 const sha512 = require("js-sha512");
 
@@ -199,7 +200,25 @@ const verify_email = async (req, res) => {
 const data_gym_session = async (req, res) => {
   try {
     const dataGymSession = await get_gym_session();
+    const user_id = req.session.user.user_id;
+    const isMember = await findUserId(user_id);
+    if (isMember) {
+      res.status(200).json({ dataGymSession, isMember });
+    }
     res.status(200).json({ dataGymSession });
+  } catch (error) {
+    res.status(404).json({ message: err.message });
+  }
+};
+const book_session = async (req, res) => {
+  try {
+    const isMember = await findUserId(req.session.user.user_id);
+
+    if (isMember) {
+    } else {
+    }
+
+    res.status(200).json({ message: "Berhasil melakukan booking" });
   } catch (error) {
     res.status(404).json({ message: err.message });
   }
@@ -214,4 +233,5 @@ module.exports = {
   transaction_update,
   verify_email,
   data_gym_session,
+  book_session,
 };
