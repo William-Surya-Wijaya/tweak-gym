@@ -210,6 +210,7 @@ const data_gym_session = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
 const book_session = async (req, res) => {
   try {
     const isMember = await findUserId(req.session.user.user_id);

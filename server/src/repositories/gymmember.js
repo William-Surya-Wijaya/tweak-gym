@@ -55,4 +55,4 @@ const createMember = async (user_id, transaction_id, duration) => {
   });
 };
 
-module.exports = { findUserId, findUserEmail, destroyMembership, createMember };
+module.exports = { findUserId, destroyMembership, createMember };
