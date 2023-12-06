@@ -68,8 +68,9 @@ const login_account = async (req, res) => {
         secret_key
     );
 
+    const data = await checkUserData(req.body.user_email);
     const dataUser = {
-      user_id: req.body.user_id,
+      user_id: data.user_id,
       email: req.body.user_email,
       token: token,
     };
@@ -199,15 +200,15 @@ const verify_email = async (req, res) => {
 
 const data_gym_session = async (req, res) => {
   try {
+    console.log(req.session.user);
     const dataGymSession = await get_gym_session();
-
-    const user_id = req.session.user.user_id;
+    const { user_id } = req.session.user;
     const isMember = await findUserId(user_id);
     if (isMember) {
       res.status(200).json({ dataGymSession, isMember });
     }
     res.status(200).json({ dataGymSession });
-  } catch (error) {
+  } catch (err) {
     res.status(404).json({ message: err.message });
   }
 };

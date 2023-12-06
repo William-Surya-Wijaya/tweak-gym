@@ -21,9 +21,9 @@ router.get("/", limiter, controller.home_page);
 router.get("/verify", controller.verify_email);
 router.get(
   "/get-gym-session",
-  limiter,
+  // limiter,
   verifyKeyMiddleware,
-  verifyUserToken,
+  // verifyUserToken,
   controller.data_gym_session
 );
 // POST Route

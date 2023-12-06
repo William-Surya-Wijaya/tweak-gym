@@ -4,27 +4,33 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./src/controller/routes");
+const cookieParser = require("cookie-parser");
 
 const app = express();
+app.use(bodyParser.json());
 
-const staticPathPublic = path.resolve("public");
-
-app.set("view engine", "ejs");
 app.use(
   cors({
-    origin: "http://localhost:3000", // Ganti dengan URL aplikasi klien Anda
+    origin: ["http://localhost:3000"],
+    methods: ["POST", "GET"],
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: "secret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      secure: "false",
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   })
 );
+
 app.use(express.json());
-app.use(express.static(staticPathPublic));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", routes);

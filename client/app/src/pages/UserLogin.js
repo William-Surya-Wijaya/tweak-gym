@@ -16,6 +16,7 @@ function UserLogin({ setSessionData }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -27,21 +28,22 @@ function UserLogin({ setSessionData }) {
             "x-api-key":
               "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
           },
+          withCredentials: true,
         }
       );
-
       if (response.status === 200) {
-        // Assuming response.data contains user session data
+        // // Assuming response.data contains user session data
         const userSessionData = response.data;
 
-        // Save the session data
+        // // Save the session data
         setSessionData("userSession", userSessionData);
 
         // Navigate to the home page or another route
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
-      alert(error);
+      alert(error.message);
+      console.log(error);
     }
   };
 
