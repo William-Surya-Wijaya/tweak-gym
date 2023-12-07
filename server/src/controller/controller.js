@@ -73,6 +73,7 @@ const login_account = async (req, res) => {
       user_id: data.user_id,
       email: req.body.user_email,
       token: token,
+      user_name: data.user_name,
     };
     req.session.user = dataUser;
 

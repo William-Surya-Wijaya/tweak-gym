@@ -28,15 +28,25 @@ function UserLogin({ setSessionData }) {
           },
         })
         .then((res) => {
+          setSessionData("userSession", res.data);
           if (res.data.dataUser) {
-            navigate("/");
+            Swal.fire({
+              title: 'Login Success!',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then(() => {
+              navigate("/");
+            });
           } else {
             alert("Terjadi Kesalahan");
           }
         });
     } catch (error) {
-      alert(error.message);
-      console.log(error);
+      Swal.fire({
+        title: 'Login Failed!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   };
 

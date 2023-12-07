@@ -56,7 +56,7 @@ function App() {
         <Route path="/" element={
           <>
             <UserDashboard />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>
         } />
@@ -65,7 +65,7 @@ function App() {
         <Route path="/membership" element={
           <>
             <UserMember />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>
         } />
@@ -74,7 +74,7 @@ function App() {
         <Route path="/gym-session" element={
           <>
             <UserGymSession userSession={getSessionData('userSession')} />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>
         } />
@@ -90,7 +90,7 @@ function App() {
         <Route path="/user-poin" element={
           <>
             <UserPoin />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>
         } />
@@ -99,7 +99,7 @@ function App() {
         <Route path="/history" element={
           <>
             <UserHistory />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>
         } />
@@ -109,7 +109,7 @@ function App() {
         <Route path="/admin/" element={
           <>
             <AdminDashboard />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <AdminNavBar />
           </>
         } />
@@ -118,7 +118,7 @@ function App() {
         <Route path="/admin/transaction" element={
           <>
             <AdminTransaction />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <AdminNavBar />
           </>
         } />
@@ -127,7 +127,7 @@ function App() {
         <Route path="/admin/member" element={
           <>
             <AdminMember />
-            <UserTopBar />
+            <UserTopBar userSession={getSessionData('userSession')} />
             <AdminNavBar />
           </>
         } />

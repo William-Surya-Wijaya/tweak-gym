@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 function UserRegister() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     user_email: "",
     user_password: "",
@@ -29,10 +32,20 @@ function UserRegister() {
       );
 
       if (response.status === 200) {
-        alert("success");
+        Swal.fire({
+          title: 'Login Success!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          navigate("/");
+        });
       }
     } catch (error) {
-      alert(error);
+      Swal.fire({
+        title: 'Login Failed!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   };
 
