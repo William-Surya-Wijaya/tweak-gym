@@ -214,6 +214,16 @@ const data_gym_session = async (req, res) => {
   }
 };
 
+const is_member = async (req, res) => {
+  try {
+    const isMember = await findUserId(req.session.user.user_id);
+
+    res.status(200).json({ isMember });
+  } catch (error) {
+    res.status(404).json({ message : 'false' });
+  }
+};
+
 const book_session = async (req, res) => {
   try {
     const isMember = await findUserId(req.session.user.user_id);
@@ -238,4 +248,5 @@ module.exports = {
   verify_email,
   data_gym_session,
   book_session,
+  is_member
 };

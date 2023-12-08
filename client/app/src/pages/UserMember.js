@@ -1,11 +1,32 @@
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../assets/UserStyle.module.css";
+import axios from "axios";
 
 function UserMember(sessionUser) {
+  const [dataMember, setDataMember] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3100/user-member-data",
+        );
+
+        const data = response.data;
+        setDataMember(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  });
+
   return(
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>
         <div className={`${styles.gymSessionSubTitle}`}>
-          <div className={`${styles.textTitle}`}>WELCOME TWEAKERS !</div>
+          <div className={`${styles.textTitle}`}>WELCOME TWEAKERS !{dataMember}</div>
           <div className={`${styles.textContent}`}>Your membership will be end at 31 December 2023, make sure to use the remaining time to exercise.</div>
           {/* <div className={`${styles.row}`}>
             <div className={`${styles.buttonLight}`}>Start Now</div>
