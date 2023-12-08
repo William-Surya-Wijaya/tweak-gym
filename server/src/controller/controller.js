@@ -71,9 +71,9 @@ const login_account = async (req, res) => {
     const data = await checkUserData(req.body.user_email);
     const dataUser = {
       user_id: data.user_id,
+      user_name: data.user_name,
       email: req.body.user_email,
       token: token,
-      user_name: data.user_name,
     };
     req.session.user = dataUser;
 

@@ -1,6 +1,6 @@
 import styles from "../assets/UserStyle.module.css";
 
-function UserMember() {
+function UserMember(sessionUser) {
   return(
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>

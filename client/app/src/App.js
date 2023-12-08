@@ -64,7 +64,7 @@ function App() {
         {/* User Member */}
         <Route path="/membership" element={
           <>
-            <UserMember />
+            <UserMember userSession={getSessionData('userSession')} />
             <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>
