@@ -26,6 +26,10 @@ router.get(
   // verifyUserToken,
   controller.data_gym_session
 );
+router.get(
+  "/user-member-data",
+  controller.is_member
+)
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(

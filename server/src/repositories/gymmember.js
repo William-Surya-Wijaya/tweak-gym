@@ -18,8 +18,6 @@ const findUserId = async (user_id) => {
   }
 };
 
-
-
 const destroyMembership = async (user_id) => {
   await GymMember.destroy({
     where: {
