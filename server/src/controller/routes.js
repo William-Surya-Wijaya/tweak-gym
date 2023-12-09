@@ -21,10 +21,16 @@ router.get("/", limiter, controller.home_page);
 router.get("/verify", controller.verify_email);
 router.get(
   "/get-gym-session",
-  // limiter,
-  // verifyKeyMiddleware,
-  // verifyUserToken,
+  limiter,
+  verifyKeyMiddleware,
+  verifyUserToken,
   controller.data_gym_session
+);
+router.get(
+  "/cek-session",
+  limiter,
+  // verifyKeyMiddleware,
+  controller.cek_session
 );
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
@@ -41,9 +47,9 @@ router.post(
   "/login-tweak-account",
   limiter,
   verifyKeyMiddleware,
-  //verifyRecaptcha,
+  // verifyRecaptcha,
   dataUserLogin,
-  // checkIsMember,
+  checkIsMember,
   controller.login_account
 );
 router.post(
