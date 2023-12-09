@@ -261,6 +261,13 @@
   transition: 0.3s ease-in-out;
 }
 
+.userOrderSummary .buttonTransparent,
+.userOrderSummary .buttonLight{
+  width: 400px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
 .buttonLight:hover{
   background-color: black !important;
   color: #d7fd52;
@@ -539,10 +546,6 @@
   font-weight: bold;
 }
 
-.membershipGallery{
-  margin-bottom: 2em;
-}
-
 .membershipGallery .item,.membershipGallery .galleryContent,.membershipGallery img{
   height: 100px;
 }
@@ -587,12 +590,22 @@
 }
 
 .userOrderSummary{
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  width: 30%;
   top:0;
-  left:0;
   z-index: 20;
-  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.userOrderSummary .gymSessionSubTitle{
+  background-color: #1c1c1c;
+}
+
+.userOrderSummary .gymSessionHeader,
+.userOrderSummary .gymSessionSubTitle,
+.userOrderSummary .gymSessionHeader::before{
+  height: 200px;
 }
 
 .userOrderSummary .section{
@@ -607,8 +620,47 @@
   height: 150px;
 }
 
+.row{
+  display: flex;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+
+.userOrderSummary .item .textTitle{
+  text-align: left;
+}
+
+.userOrderSummary .item .textContent{
+  text-align: left;
+}
+
+.userOrderSummary .galleryContent{
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  background-color: #1c1c1c;
+  border: 1px solid rgb(189, 189, 189);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.userOrderSummary .galleryContent > .col:first-child{
+  width: 30%;
+}
+
 .userOrderSummary .footer{
   margin-bottom: 0px;
+}
+
+.userOrderSummary .textContent{
+  width: 50%;
+  color:rgb(189, 189, 189);
+  text-align: center;
 }
 
 .loginPage form{
@@ -683,6 +735,10 @@
   }
 
   .topbarContainer,.topbar,.navbarContainer,.navbar,.dashboardTitle, .headerRibbon{
+    width: 100%;
+  }
+
+  .userOrderSummary{
     width: 100%;
   }
 }

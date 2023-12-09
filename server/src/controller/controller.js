@@ -1,7 +1,7 @@
 const {
   addUserData,
   checkUserData,
-  findUserEmail,
+
   checkUserToken,
 } = require("../repositories/UserRepo");
 const {
@@ -16,6 +16,7 @@ const {
   findUserTransaction,
 } = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
+const { create_user_point } = require("../repositories/user_point");
 const { getMemberProduct } = require("../repositories/memb_package");
 const { createMember, findUserId } = require("../repositories/gymmember");
 const { get_gym_session } = require("../repositories/gymsession");
@@ -51,6 +52,10 @@ const register_account = async (req, res) => {
       verifToken
     );
 
+    const userdata = await checkUserData(user_email);
+    console.log(userdata.user_id);
+    await create_user_point(userdata.user_id);
+
     sendVerificationEmail(user_email, verifToken);
 
     res.status(200).json({ message: "Berhasil Mendaftarkan Akun" });
@@ -69,6 +74,7 @@ const login_account = async (req, res) => {
     );
 
     const data = await checkUserData(req.body.user_email);
+    console.log(req.body.user_email);
     const dataUser = {
       user_id: data.user_id,
       user_name: data.user_name,
@@ -193,10 +199,12 @@ const verify_email = async (req, res) => {
   try {
     // TODO : create a verification token through req.query
     const { token } = req.query;
-    const dataUser = await checkUserToken(token);
+    await checkUserToken(token);
 
     res.status(200).json({ message: "berhasil" });
-  } catch (err) {}
+  } catch (err) {
+    res.status(400).json({ message: "gagal verifikasi" });
+  }
 };
 
 const data_gym_session = async (req, res) => {
@@ -237,7 +245,19 @@ const book_session = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
-
+const cek_session = async (req, res) => {
+  try {
+    const { user_id, email, token, user_name } = req.session.user;
+    console.log(user_id, email, token, user_name);
+    if ((user_id, email, token, user_name)) {
+      res.status(200).json({ message: "session valid" });
+    } else {
+      res.status(404).json({ message: "Session invalid" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 module.exports = {
   home_page,
   post_test,
@@ -248,5 +268,9 @@ module.exports = {
   verify_email,
   data_gym_session,
   book_session,
+<<<<<<< HEAD
   is_member
+=======
+  cek_session,
+>>>>>>> server-branch-adrian-jason
 };

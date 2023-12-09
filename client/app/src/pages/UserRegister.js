@@ -75,6 +75,30 @@ function UserRegister() {
 
       <form name="login-form" onSubmit={handleSubmit}>
         <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_name">Full Name:</label>
+          <input
+            type="text"
+            id="user_name"
+            name="user_name"
+            required
+            minLength="8"
+            value={formData.user_name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_email">Phone Number:</label>
+          <input
+            type="text"
+            id="user_phonenumb"
+            name="user_phonenumb"
+            required
+            minLength="8"
+            value={formData.user_phonenumb}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
           <label htmlFor="user_email">Email:</label>
           <input
             type="text"
@@ -95,30 +119,6 @@ function UserRegister() {
             required
             minLength="8"
             value={formData.user_password}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={`${styles.formGroup}`}>
-          <label htmlFor="user_email">Phone Number:</label>
-          <input
-            type="text"
-            id="user_phonenumb"
-            name="user_phonenumb"
-            required
-            minLength="8"
-            value={formData.user_phonenumb}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={`${styles.formGroup}`}>
-          <label htmlFor="user_name">Username:</label>
-          <input
-            type="text"
-            id="user_name"
-            name="user_name"
-            required
-            minLength="8"
-            value={formData.user_name}
             onChange={handleInputChange}
           />
         </div>
