@@ -27,17 +27,16 @@ router.get(
   controller.data_gym_session
 );
 router.get(
-<<<<<<< HEAD
   "/user-member-data",
+  limiter,
   controller.is_member
-)
-=======
+);
+router.get(
   "/cek-session",
   limiter,
   // verifyKeyMiddleware,
   controller.cek_session
 );
->>>>>>> server-branch-adrian-jason
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
