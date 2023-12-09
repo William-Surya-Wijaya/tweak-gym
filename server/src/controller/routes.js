@@ -37,6 +37,10 @@ router.get(
   // verifyKeyMiddleware,
   controller.cek_session
 );
+router.get(
+  "/member-package-data",
+  controller.member_product
+)
 // POST Route
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(

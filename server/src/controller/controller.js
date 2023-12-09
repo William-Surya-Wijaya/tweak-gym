@@ -160,6 +160,16 @@ const point_transaction = async (req, res) => {
   }
 };
 
+const member_product = async (req, res) =>{
+  try {
+    const memb_package_data = await getMembershipPackage();
+
+    res.status(200).json({ memb_package_data });
+  } catch (error) {
+    res.status(404).json({ message : 'false' });
+  }
+}
+
 const transaction_update = async (req, res) => {
   try {
     const order_id = req.body.order_id;
@@ -270,4 +280,5 @@ module.exports = {
   book_session,
   is_member,
   cek_session,
+  member_product
 };

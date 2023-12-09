@@ -1,10 +1,31 @@
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
+import axios from "axios";
+
 
 function UserNavBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const [dataMember, setDataMember] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3100/user-member-data",
+        );
+        const data = response.data;
+        setDataMember(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  });
 
   const handleHomeClick = () => {
     navigate('/');
@@ -15,7 +36,11 @@ function UserNavBar() {
   };
 
   const handleQrButtonClick = () => {
-    navigate('/membership');
+    if(dataMember.message === '' || dataMember.message == null){
+      navigate('/membership-register');
+    } else {
+      navigate('/membership');
+    }
   };
 
   const handleHistoryClick = () => {

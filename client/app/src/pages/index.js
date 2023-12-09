@@ -6,6 +6,7 @@ import {UserLogin} from "./UserLogin";
 import {UserRegister} from "./UserRegister";
 import {UserOrderSummary} from "./UserOrderSummary";
 import {UserMember} from "./UserMember";
+import {UserRegisterMember} from "./UserRegisterMember";
 import {UserNavBar} from "./UserNavBar";
 import {UserTopBar} from "./UserTopBar";
 
@@ -28,6 +29,7 @@ export {
   UserNavBar,
   UserTopBar,
   UserMember,
+  UserRegisterMember,
 
   // ! ADMIN PAGES
   AdminDashboard,

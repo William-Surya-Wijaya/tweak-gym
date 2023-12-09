@@ -11,6 +11,7 @@ import {
   UserRegister,
   UserOrderSummary,
   UserMember,
+  UserRegisterMember,
   UserNavBar,
   UserTopBar,
 
@@ -65,6 +66,15 @@ function App() {
         <Route path="/membership" element={
           <>
             <UserMember userSession={getSessionData('userSession')} />
+            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserNavBar />
+          </>
+        } />
+
+        {/* User Member */}
+        <Route path="/membership-register" element={
+          <>
+            <UserRegisterMember userSession={getSessionData('userSession')} />
             <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>

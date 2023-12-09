@@ -725,6 +725,48 @@
   margin: 1em 0 0 0;
 }
 
+.packageCard{
+  width: 300px;
+  padding: 10px;
+  background-color: #353535;
+  border: 1px solid rgb(189, 189, 189);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.packageName{
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #4b4b4b;
+}
+
+.packagePrice{
+  font-size: medium;
+  font-weight: bold;
+  height: 100%;
+  align-self: center;
+  margin-left: 1em;
+}
+
+.packageDuration{
+  font-size: medium;
+  font-weight: bold;
+  background-color: white;
+  color: #1c1c1c;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 30px;
+}
+
+.justifyContentSpaceBetween{
+  justify-content: space-between;
+}
+
 @media (max-width: 1300px) {
   .dashboardHeader::before {
     width: 100%;
