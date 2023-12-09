@@ -268,9 +268,6 @@ module.exports = {
   verify_email,
   data_gym_session,
   book_session,
-<<<<<<< HEAD
-  is_member
-=======
+  is_member,
   cek_session,
->>>>>>> server-branch-adrian-jason
 };
