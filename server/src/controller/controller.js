@@ -258,9 +258,10 @@ const book_session = async (req, res) => {
 const cek_session = async (req, res) => {
   try {
     const { user_id, email, token, user_name } = req.session.user;
+    const dataUser = await checkUserData(email);
     console.log(user_id, email, token, user_name);
-    if ((user_id, email, token, user_name)) {
-      res.status(200).json({ message: "session valid" });
+    if (dataUser) {
+      res.status(200).json({ message: "session valid", dataUser });
     } else {
       res.status(404).json({ message: "Session invalid" });
     }
