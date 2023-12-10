@@ -23,7 +23,7 @@ router.get(
   "/get-gym-session",
   limiter,
   verifyKeyMiddleware,
-  verifyUserToken,
+  // verifyUserToken,
   controller.data_gym_session
 );
 router.get(
