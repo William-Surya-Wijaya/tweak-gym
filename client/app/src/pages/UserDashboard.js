@@ -25,7 +25,7 @@ function UserDashboard() {
       }
     };
     fetchData();
-  });
+  }, []);
   return (
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.dashboardHeader}`}>

@@ -20,7 +20,7 @@ function UserMember(sessionUser) {
     };
 
     fetchData();
-  });
+  }, []);
 
   return(
     <div className={`${styles.userDashboard}`}>
