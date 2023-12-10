@@ -25,7 +25,7 @@ function UserNavBar() {
     };
 
     fetchData();
-  });
+  }, []);
 
   const handleHomeClick = () => {
     navigate('/');

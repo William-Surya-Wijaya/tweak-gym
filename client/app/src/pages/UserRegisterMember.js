@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { MemberPackageCard } from './components/MemberPackageCard';
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 
-function UserRegisterMember(sessionUser) {
+function UserRegisterMember() {
   const [dataMemberPackage, setDataMemberPackage] = useState(null);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function UserRegisterMember(sessionUser) {
     };
 
     fetchData();
-  });
+  }, []);
 
   return(
     <div className={`${styles.userDashboard}`}>
@@ -36,8 +37,20 @@ function UserRegisterMember(sessionUser) {
           JOIN THE TWEAKERS * JOIN THE TWEAKERS * JOIN THE TWEAKERS * JOIN THE TWEAKERS
         </div>
       </div>
-      <div className={`${styles.section}`}>
-        {console.log(dataMemberPackage)}
+      <div className={`${styles.section}`} style={{ minHeight: '60vh'}}>
+        {dataMemberPackage &&
+          dataMemberPackage.memb_package_data &&
+          Array.isArray(dataMemberPackage.memb_package_data) &&
+          dataMemberPackage.memb_package_data.length > 0 &&
+          dataMemberPackage.memb_package_data.map((item, index) => (
+            <MemberPackageCard
+              key={index}
+              idMemberPackage={item.id_memb_pack}
+              packageName={item.package_name}
+              packageDuration={item.package_duration}
+              packagePrice={item.package_price}
+            />
+          ))}
       </div>
       <div className={`${styles.footer}`}>
         <div>&copy; 2023 Tweak Gym. All rights reserved.</div>

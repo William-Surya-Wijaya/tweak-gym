@@ -74,7 +74,7 @@ function App() {
         {/* User Member */}
         <Route path="/membership-register" element={
           <>
-            <UserRegisterMember userSession={getSessionData('userSession')} />
+            <UserRegisterMember />
             <UserTopBar userSession={getSessionData('userSession')} />
             <UserNavBar />
           </>

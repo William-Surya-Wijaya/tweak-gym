@@ -24,7 +24,7 @@ const MembershipPackage = sequelize.define(
     },
   },
   {
-    tableName: "membershippackage", // Make sure it matches the table name in your SQL definition
+    tableName: "membershippackage",
     timestamps: false,
   }
 );

@@ -17,7 +17,7 @@ const {
 } = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
 const { create_user_point } = require("../repositories/user_point");
-const { getMemberProduct } = require("../repositories/memb_package");
+const { getMemberProduct, getMembershipPackage } = require("../repositories/memb_package");
 const { createMember, findUserId } = require("../repositories/gymmember");
 const { get_gym_session } = require("../repositories/gymsession");
 const sha512 = require("js-sha512");
@@ -163,10 +163,10 @@ const point_transaction = async (req, res) => {
 const member_product = async (req, res) =>{
   try {
     const memb_package_data = await getMembershipPackage();
-
     res.status(200).json({ memb_package_data });
   } catch (error) {
-    res.status(404).json({ message : 'false' });
+    console.log(error);
+    res.status(404).json({ message : error });
   }
 }
 
