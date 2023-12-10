@@ -4,7 +4,7 @@ import { UserOrderSummary } from './UserOrderSummary';
 import { SessionCard } from './components/SessionCard';
 import axios from "axios";
 
-function UserGymSession(props) {
+function UserGymSession() {
   const [gymOrderModal, setShowModal] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
 
@@ -28,7 +28,6 @@ function UserGymSession(props) {
             headers: {
               "x-api-key":
                 "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
-              Authorization: props.userSession.token,
             },
             withCredentials: true,
           }
@@ -42,7 +41,7 @@ function UserGymSession(props) {
     };
 
     fetchData();
-  }, [props.userSession]);
+  }, []);
   return (
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>
