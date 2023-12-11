@@ -24,15 +24,6 @@ import {
 } from "./pages/";
 
 function App() {
-  const setSessionData = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data));
-  };
-
-  const getSessionData = (key) => {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
-  };  
-
   return (
     <div className="flex items-center w-screen h-screen justify-center bg-slate-200 overflow-auto">
     <div className={`relative h-screen bg-gradient-to-b xs:w-[100%] ss:w-[100%] sm:w-[100%] md:w-[100%] lg:w-[100%] xl:w-[30%]`}>
@@ -49,7 +40,7 @@ function App() {
         {/* User Login */}
         <Route path="/login" element={
           <>
-            <UserLogin setSessionData={setSessionData}/>
+            <UserLogin/>
           </>
         } />
 
@@ -57,7 +48,7 @@ function App() {
         <Route path="/" element={
           <>
             <UserDashboard />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -65,8 +56,8 @@ function App() {
         {/* User Member */}
         <Route path="/membership" element={
           <>
-            <UserMember userSession={getSessionData('userSession')} />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserMember />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -75,7 +66,7 @@ function App() {
         <Route path="/membership-register" element={
           <>
             <UserRegisterMember />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -83,8 +74,8 @@ function App() {
         { /* User Gym Session */}
         <Route path="/gym-session" element={
           <>
-            <UserGymSession userSession={getSessionData('userSession')} />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserGymSession />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -100,7 +91,7 @@ function App() {
         <Route path="/user-poin" element={
           <>
             <UserPoin />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -109,7 +100,7 @@ function App() {
         <Route path="/history" element={
           <>
             <UserHistory />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <UserNavBar />
           </>
         } />
@@ -119,7 +110,7 @@ function App() {
         <Route path="/admin/" element={
           <>
             <AdminDashboard />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <AdminNavBar />
           </>
         } />
@@ -128,7 +119,7 @@ function App() {
         <Route path="/admin/transaction" element={
           <>
             <AdminTransaction />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <AdminNavBar />
           </>
         } />
@@ -137,7 +128,7 @@ function App() {
         <Route path="/admin/member" element={
           <>
             <AdminMember />
-            <UserTopBar userSession={getSessionData('userSession')} />
+            <UserTopBar />
             <AdminNavBar />
           </>
         } />

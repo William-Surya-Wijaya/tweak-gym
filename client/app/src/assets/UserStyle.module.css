@@ -595,7 +595,6 @@
   top:0;
   z-index: 20;
   max-height: 100vh;
-  overflow: hidden;
 }
 
 .userOrderSummary .gymSessionSubTitle{
@@ -609,7 +608,7 @@
 }
 
 .userOrderSummary .section{
-  height: 700px;
+  height: 80vh;
 }
 
 .userOrderSummary .membershipGallery *{

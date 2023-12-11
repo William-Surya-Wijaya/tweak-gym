@@ -36,7 +36,7 @@ function UserNavBar() {
   };
 
   const handleQrButtonClick = () => {
-    if(dataMember.message === '' || dataMember.message == null){
+    if(!dataMember || dataMember.message === ''){
       navigate('/membership-register');
     } else {
       navigate('/membership');

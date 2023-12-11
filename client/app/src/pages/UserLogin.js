@@ -4,7 +4,7 @@ import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function UserLogin({ setSessionData }) {
+function UserLogin() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,7 +28,6 @@ function UserLogin({ setSessionData }) {
           },
         })
         .then((res) => {
-          setSessionData("userSession", res.data);
           if (res.data.dataUser) {
             Swal.fire({
               title: 'Login Success!',
