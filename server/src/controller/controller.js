@@ -91,9 +91,12 @@ const login_account = async (req, res) => {
 
 const member_transaction = async (req, res) => {
   try {
-    const { user_email, memb_package, net_amount, purchase_date } = req.body;
-    const dataUser = await checkUserData(user_email);
-    console.log();
+    const email = req.session.user.email;
+    const { memb_package, net_amount, purchase_date } = req.body;
+
+    console.log("HAHA", email);
+    const dataUser = await checkUserData(email);
+    console.log(dataUser);
     const transactionID = createTransactionID("T");
     console.log(transactionID);
 
@@ -160,15 +163,15 @@ const point_transaction = async (req, res) => {
   }
 };
 
-const member_product = async (req, res) =>{
+const member_product = async (req, res) => {
   try {
     const memb_package_data = await getMembershipPackage();
     res.status(200).json({ memb_package_data });
   } catch (error) {
     console.log(error);
-    res.status(404).json({ message : error });
+    res.status(404).json({ message: error });
   }
-}
+};
 
 const transaction_update = async (req, res) => {
   try {
@@ -177,9 +180,10 @@ const transaction_update = async (req, res) => {
     const gross_amount = req.body.gross_amount;
     const signature_key = req.body.signature_key;
     const transaction_status = req.body.transaction_status;
-    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3O";
+    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3";
 
     const hashed = sha512(order_id + status_code + gross_amount + serverKey);
+    console.log(order_id, status_code, gross_amount, serverKey);
     if (hashed == signature_key) {
       if (transaction_status === "settlement") {
         if (order_id.charAt(0) === "T") {
