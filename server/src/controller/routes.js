@@ -69,6 +69,10 @@ router.post(
   controller.member_transaction
 );
 router.post(
+  "/point-transaction",
+  controller.point_transaction
+)
+router.post(
   "/booking-session",
   limiter,
   verifyKeyMiddleware,

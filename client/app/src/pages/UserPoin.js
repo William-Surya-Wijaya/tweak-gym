@@ -1,6 +1,20 @@
 import styles from "../assets/UserStyle.module.css";
+import React, { useEffect, useState } from "react";
+import { UserPoinSummary } from './UserPoinSummary';
 
 function UserPoin() {
+  const [gymOrderModal, setShowModal] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
+
+  const handleOpenModal = (sessionData) => {
+    setSelectedSession(sessionData);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return(
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>
@@ -85,6 +99,16 @@ function UserPoin() {
           </div>
         </div>
       </div>
+      {gymOrderModal && selectedSession && (
+        <UserRegisterSummary
+          userEmail={dataSession.userEmail}
+          idMemberPackage={selectedSession.idMemberPackage}
+          packageName={selectedSession.packageName}
+          packageDuration={selectedSession.packageDuration}
+          packagePrice={selectedSession.packagePrice}
+          onClose={handleCloseModal}
+        />
+      )}
       <div className={`${styles.footer}`}>
         <div>&copy; 2023 Tweak Gym. All rights reserved.</div>
       </div>

@@ -130,7 +130,8 @@ const member_transaction = async (req, res) => {
 
 const point_transaction = async (req, res) => {
   try {
-    const { user_email, point_amount, net_amount, purchase_date } = req.body;
+    const user_email = req.session.user.email;
+    const { point_amount, net_amount, purchase_date } = req.body;
     const dataUser = await checkUserData(user_email);
     console.log();
     const transactionID = createTransactionID("P");
@@ -280,6 +281,7 @@ module.exports = {
   member_transaction,
   transaction_update,
   verify_email,
+  point_transaction,
   data_gym_session,
   book_session,
   is_member,

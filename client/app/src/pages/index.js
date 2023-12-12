@@ -2,6 +2,7 @@ import {UserDashboard} from "./UserDashboard";
 import {UserGymSession} from "./UserGymSession";
 import {UserHistory} from "./UserHistory";
 import {UserPoin} from "./UserPoin";
+import {UserPoinSummary} from "./UserPoinSummary";
 import {UserLogin} from "./UserLogin";
 import {UserRegister} from "./UserRegister";
 import {UserOrderSummary} from "./UserOrderSummary";
@@ -23,6 +24,7 @@ export {
   UserGymSession,
   UserHistory,
   UserPoin,
+  UserPoinSummary,
   UserLogin,
   UserRegister,
   UserOrderSummary,
