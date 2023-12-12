@@ -100,8 +100,7 @@ function UserPoin() {
         </div>
       </div>
       {gymOrderModal && selectedSession && (
-        <UserRegisterSummary
-          userEmail={dataSession.userEmail}
+        <UserPoinSummary
           idMemberPackage={selectedSession.idMemberPackage}
           packageName={selectedSession.packageName}
           packageDuration={selectedSession.packageDuration}
