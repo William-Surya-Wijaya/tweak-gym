@@ -18,6 +18,7 @@ function usePayment() {
 
   const validateAndProcess = async (formData) => {
     try {
+      console.log(formData);
       const response = await axios.post(
         "http://localhost:3100/point-transaction",
         formData,
@@ -48,7 +49,6 @@ function usePayment() {
             window.location.reload();
           },
         });
-
       }
     } catch (error) {
       Swal.fire({
@@ -62,10 +62,7 @@ function usePayment() {
   return { validateAndProcess };
 }
 
-function UserPoinSummary({
-  poinPrice,
-  onClose,
-}) {
+function UserPoinSummary({ poinPrice, onClose }) {
   console.log("Rendering UserPoinSummary with poinPrice:", poinPrice);
   const navigate = useNavigate();
   const { validateAndProcess } = usePayment();
@@ -75,7 +72,7 @@ function UserPoinSummary({
     const formattedDate = currentDate.toISOString().slice(0, 10);
 
     const formData = {
-      net_price: poinPrice,
+      net_ammount: poinPrice,
       purchase_date: formattedDate,
     };
 
@@ -90,7 +87,9 @@ function UserPoinSummary({
         </div>
       </div>
       <div className={`${styles.section}`}>
-        <div className={`${styles.textTitle}`}>{Number(poinPrice).toLocaleString()} Tweak Points</div>
+        <div className={`${styles.textTitle}`}>
+          {Number(poinPrice).toLocaleString()} Tweak Points
+        </div>
         <div className={`${styles.textContent}`}>
           Your order <b>{Number(poinPrice).toLocaleString()}</b>
           <br></br>

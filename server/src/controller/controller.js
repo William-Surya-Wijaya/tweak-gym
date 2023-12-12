@@ -16,11 +16,23 @@ const {
   findUserTransaction,
 } = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
-const { create_user_point } = require("../repositories/user_point");
-const { getMemberProduct, getMembershipPackage } = require("../repositories/memb_package");
+const {
+  create_user_point,
+  findPointId,
+  update_user_point,
+} = require("../repositories/user_point");
+const {
+  getMemberProduct,
+  getMembershipPackage,
+} = require("../repositories/memb_package");
 const { createMember, findUserId } = require("../repositories/gymmember");
 const { get_gym_session } = require("../repositories/gymsession");
 const sha512 = require("js-sha512");
+const {
+  create_point_transaction,
+  find_order,
+  update_transaction_point,
+} = require("../repositories/user_point_trans");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -131,22 +143,23 @@ const member_transaction = async (req, res) => {
 const point_transaction = async (req, res) => {
   try {
     const user_email = req.session.user.email;
-    const { point_amount, net_amount, purchase_date } = req.body;
+    const { net_ammount, purchase_date } = req.body;
     const dataUser = await checkUserData(user_email);
-    console.log();
+    console.log(dataUser);
     const transactionID = createTransactionID("P");
-    console.log(transactionID);
-
-    await create_transaction(
+    const pointId = await findPointId(dataUser.user_id);
+    console.log(pointId);
+    await create_point_transaction(
       transactionID,
       dataUser.user_id,
-      net_amount,
+      pointId.id_point,
+      net_ammount,
       purchase_date
     );
     const parameter = {
       transaction_details: {
         order_id: transactionID,
-        gross_amount: net_amount,
+        gross_amount: net_ammount,
       },
 
       customer_details: {
@@ -200,6 +213,14 @@ const transaction_update = async (req, res) => {
           );
         } else if (order_id.charAt(0) === "P") {
           // TODO:: create update_transaction point in the repository
+          console.log(order_id);
+          await update_transaction_point(order_id);
+          const transactionData = await find_order(order_id);
+          console.log(transactionData);
+          await update_user_point(
+            transactionData.id_point,
+            transactionData.ammount_point
+          );
         }
       }
     }
@@ -228,10 +249,12 @@ const data_gym_session = async (req, res) => {
     const dataGymSession = await get_gym_session();
     const { user_id } = req.session.user;
     const isMember = await findUserId(user_id);
+    console.log(isMember);
     if (isMember) {
       res.status(200).json({ dataGymSession, isMember });
+    } else {
+      res.status(200).json({ dataGymSession });
     }
-    res.status(200).json({ dataGymSession });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
