@@ -19,7 +19,7 @@ function usePayment() {
   const validateAndProcess = async (formData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3100/register-tweak-member",
+        "http://localhost:3100/point-transaction",
         formData,
         {
           headers: {
@@ -63,12 +63,10 @@ function usePayment() {
 }
 
 function UserPoinSummary({
-  idMemberPackage,
-  packageName,
-  packageDuration,
-  packagePrice,
+  poinPrice,
   onClose,
 }) {
+  console.log("Rendering UserPoinSummary with poinPrice:", poinPrice);
   const navigate = useNavigate();
   const { validateAndProcess } = usePayment();
 
@@ -77,11 +75,9 @@ function UserPoinSummary({
     const formattedDate = currentDate.toISOString().slice(0, 10);
 
     const formData = {
-      memb_package: idMemberPackage,
-      net_amount: packagePrice,
+      net_price: poinPrice,
       purchase_date: formattedDate,
     };
-    console.log(formData);
 
     validateAndProcess(formData);
   };
@@ -94,36 +90,11 @@ function UserPoinSummary({
         </div>
       </div>
       <div className={`${styles.section}`}>
-        <div className={`${styles.textTitle}`}>{packageName}</div>
+        <div className={`${styles.textTitle}`}>{Number(poinPrice).toLocaleString()} Tweak Points</div>
         <div className={`${styles.textContent}`}>
-          Your order <b>{packageName}</b>
+          Your order <b>{Number(poinPrice).toLocaleString()}</b>
           <br></br>
-          <b>Membership</b> for <b>{packageDuration} Days</b>.
-        </div>
-        <div
-          className={`${styles.dashboardGallery} ${styles.membershipGallery}`}
-        >
-          <div className={`${styles.item}`}>
-            <div className={`${styles.galleryContent}`}>
-              <div className={`${styles.col}`}>
-                <div className={`${styles.topProfile}`}>
-                  <img
-                    className={`${styles.topLogo}`}
-                    src="https://cdn.dribbble.com/users/6177297/screenshots/20141188/media/766dc94001d4ef551ba405786fbbb323.jpg?resize=400x0"
-                    alt="gym-logo"
-                  ></img>
-                </div>
-              </div>
-              <div className={`${styles.col}`}>
-                <div className={`${styles.textTitle}`}>
-                  {packageName.split(" ")[0]} Package
-                </div>
-                <div className={`${styles.textContent}`}>
-                  {packagePrice.toLocaleString()} Tweak Points
-                </div>
-              </div>
-            </div>
-          </div>
+          <b>Tweak Points</b>.
         </div>
         <div className={`${styles.item}`}>
           <div className={`${styles.buttonLight}`} onClick={handlePayment}>

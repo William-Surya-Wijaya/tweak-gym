@@ -6,10 +6,18 @@ function UserPoin() {
   const [gymOrderModal, setShowModal] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
 
-  const handleOpenModal = (sessionData) => {
+  const handleOpenModal = (event) => {  
+    const sessionData = {
+      poinPrice: event.currentTarget.dataset.poinprice,
+      onClose: handleCloseModal,
+    };
+  
+    console.log('sessionData:', sessionData);
+  
     setSelectedSession(sessionData);
     setShowModal(true);
-  };
+  };  
+  
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -32,7 +40,7 @@ function UserPoin() {
       <div className={`${styles.section}`}>
         <div className={`${styles.textTitle}`}>ADD TWEAK POINTS</div>
         <div className={`${styles.gymSessionGalerry}`}>
-          <div className={`${styles.item}`}>
+          <div className={`${styles.item}`} data-poinPrice="45000" data-onClose={handleCloseModal} onClick={handleOpenModal}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>ADD 45.000 PTS</div>
               <div className={`${styles.sessionDetail}`}>
@@ -45,7 +53,7 @@ function UserPoin() {
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
-          <div className={`${styles.item}`}>
+          <div className={`${styles.item}`} data-poinPrice={`90000`} onClick={handleOpenModal} data-onClose={handleCloseModal}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>ADD 90.000</div>
               <div className={`${styles.sessionDetail}`}>
@@ -58,7 +66,7 @@ function UserPoin() {
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
-          <div className={`${styles.item}`}>
+          <div className={`${styles.item}`} data-poinPrice={`225000`} onClick={handleOpenModal} data-onClose={handleCloseModal}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>ADD 225.000</div>
               <div className={`${styles.sessionDetail}`}>
@@ -71,7 +79,7 @@ function UserPoin() {
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
-          <div className={`${styles.item}`}>
+          <div className={`${styles.item}`} data-poinPrice={`450000`} onClick={handleOpenModal} data-onClose={handleCloseModal}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>ADD 450.000</div>
               <div className={`${styles.sessionDetail}`}>
@@ -84,7 +92,7 @@ function UserPoin() {
             </div>
             <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
           </div>
-          <div className={`${styles.item}`}>
+          <div className={`${styles.item}`} data-poinPrice={`900000`} onClick={handleOpenModal} data-onClose={handleCloseModal}>
             <div className={`${styles.gymSessionGalerryContent}`}>
               <div className={`${styles.textTitle}`}>ADD 900.000</div>
               <div className={`${styles.sessionDetail}`}>
@@ -101,10 +109,7 @@ function UserPoin() {
       </div>
       {gymOrderModal && selectedSession && (
         <UserPoinSummary
-          idMemberPackage={selectedSession.idMemberPackage}
-          packageName={selectedSession.packageName}
-          packageDuration={selectedSession.packageDuration}
-          packagePrice={selectedSession.packagePrice}
+          poinPrice={selectedSession.poinPrice}
           onClose={handleCloseModal}
         />
       )}
