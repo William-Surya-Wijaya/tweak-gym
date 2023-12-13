@@ -7,6 +7,7 @@ function formatDate(dateString) {
 }  
 
 function SessionCard({
+    sessionId,
     sessionName,
     sessionStart,
     sessionEnd,
@@ -17,6 +18,7 @@ function SessionCard({
     }) {
     const handleClick = () => {
         onClick({
+        sessionId,
         sessionName,
         sessionStart,
         sessionEnd,

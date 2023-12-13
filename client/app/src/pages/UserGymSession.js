@@ -116,6 +116,7 @@ function UserGymSession() {
             dataSession.dataGymSession.map((item, index) => (
               <SessionCard
                 key={index}
+                sessionId={item.id_gym_session}
                 sessionName={item.session_name}
                 sessionStart={item.session_start}
                 sessionEnd={item.session_end}
@@ -130,6 +131,7 @@ function UserGymSession() {
       </div>
       {gymOrderModal && selectedSession && (
         <UserOrderSummary
+          sessionId={selectedSession.sessionId}
           sessionName={selectedSession.sessionName}
           sessionStart={selectedSession.sessionStart}
           sessionEnd={selectedSession.sessionEnd}
