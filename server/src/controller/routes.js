@@ -14,7 +14,7 @@ const { cekUserPoints } = require("../middleware/cekuserpoint.js");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 menit
-  max: 100, // batas permintaan per IP
+  max: 1000, // batas permintaan per IP
 });
 
 // GET Route

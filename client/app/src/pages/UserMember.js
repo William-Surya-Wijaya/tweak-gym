@@ -37,7 +37,7 @@ function UserMember(sessionUser) {
           "http://localhost:3100/user-member-data",
         );
 
-        const data = response.data;
+        const data = response.data.dataGymSession;
         setDataMember(data);
       } catch (error) {
         console.error("Error fetching data:", error);
