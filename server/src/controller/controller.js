@@ -1,7 +1,7 @@
 const {
   addUserData,
   checkUserData,
-  findUserEmail,
+
   checkUserToken,
 } = require("../repositories/UserRepo");
 const {
@@ -16,10 +16,23 @@ const {
   findUserTransaction,
 } = require("../repositories/member_trans");
 const { snap } = require("../config/connection_midtrans");
-const { getMemberProduct } = require("../repositories/memb_package");
+const {
+  create_user_point,
+  findPointId,
+  update_user_point,
+} = require("../repositories/user_point");
+const {
+  getMemberProduct,
+  getMembershipPackage,
+} = require("../repositories/memb_package");
 const { createMember, findUserId } = require("../repositories/gymmember");
 const { get_gym_session } = require("../repositories/gymsession");
 const sha512 = require("js-sha512");
+const {
+  create_point_transaction,
+  find_order,
+  update_transaction_point,
+} = require("../repositories/user_point_trans");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -51,6 +64,10 @@ const register_account = async (req, res) => {
       verifToken
     );
 
+    const userdata = await checkUserData(user_email);
+    console.log(userdata.user_id);
+    await create_user_point(userdata.user_id);
+
     sendVerificationEmail(user_email, verifToken);
 
     res.status(200).json({ message: "Berhasil Mendaftarkan Akun" });
@@ -69,8 +86,10 @@ const login_account = async (req, res) => {
     );
 
     const data = await checkUserData(req.body.user_email);
+    console.log(req.body.user_email);
     const dataUser = {
       user_id: data.user_id,
+      user_name: data.user_name,
       email: req.body.user_email,
       token: token,
     };
@@ -84,9 +103,12 @@ const login_account = async (req, res) => {
 
 const member_transaction = async (req, res) => {
   try {
-    const { user_email, memb_package, net_amount, purchase_date } = req.body;
-    const dataUser = await checkUserData(user_email);
-    console.log();
+    const email = req.session.user.email;
+    const { memb_package, net_amount, purchase_date } = req.body;
+
+    console.log("HAHA", email);
+    const dataUser = await checkUserData(email);
+    console.log(dataUser);
     const transactionID = createTransactionID("T");
     console.log(transactionID);
 
@@ -120,22 +142,24 @@ const member_transaction = async (req, res) => {
 
 const point_transaction = async (req, res) => {
   try {
-    const { user_email, point_amount, net_amount, purchase_date } = req.body;
+    const user_email = req.session.user.email;
+    const { net_ammount, purchase_date } = req.body;
     const dataUser = await checkUserData(user_email);
-    console.log();
+    console.log(dataUser);
     const transactionID = createTransactionID("P");
-    console.log(transactionID);
-
-    await create_transaction(
+    const pointId = await findPointId(dataUser.user_id);
+    console.log(pointId);
+    await create_point_transaction(
       transactionID,
       dataUser.user_id,
-      net_amount,
+      pointId.id_point,
+      net_ammount,
       purchase_date
     );
     const parameter = {
       transaction_details: {
         order_id: transactionID,
-        gross_amount: net_amount,
+        gross_amount: net_ammount,
       },
 
       customer_details: {
@@ -153,6 +177,16 @@ const point_transaction = async (req, res) => {
   }
 };
 
+const member_product = async (req, res) => {
+  try {
+    const memb_package_data = await getMembershipPackage();
+    res.status(200).json({ memb_package_data });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error });
+  }
+};
+
 const transaction_update = async (req, res) => {
   try {
     const order_id = req.body.order_id;
@@ -160,9 +194,10 @@ const transaction_update = async (req, res) => {
     const gross_amount = req.body.gross_amount;
     const signature_key = req.body.signature_key;
     const transaction_status = req.body.transaction_status;
-    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3O";
+    const serverKey = "SB-Mid-server-6D_jBTipqRuc3aENX60JOKb3";
 
     const hashed = sha512(order_id + status_code + gross_amount + serverKey);
+    console.log(order_id, status_code, gross_amount, serverKey);
     if (hashed == signature_key) {
       if (transaction_status === "settlement") {
         if (order_id.charAt(0) === "T") {
@@ -178,6 +213,14 @@ const transaction_update = async (req, res) => {
           );
         } else if (order_id.charAt(0) === "P") {
           // TODO:: create update_transaction point in the repository
+          console.log(order_id);
+          await update_transaction_point(order_id);
+          const transactionData = await find_order(order_id);
+          console.log(transactionData);
+          await update_user_point(
+            transactionData.id_point,
+            transactionData.ammount_point
+          );
         }
       }
     }
@@ -192,10 +235,12 @@ const verify_email = async (req, res) => {
   try {
     // TODO : create a verification token through req.query
     const { token } = req.query;
-    const dataUser = await checkUserToken(token);
+    await checkUserToken(token);
 
     res.status(200).json({ message: "berhasil" });
-  } catch (err) {}
+  } catch (err) {
+    res.status(400).json({ message: "gagal verifikasi" });
+  }
 };
 
 const data_gym_session = async (req, res) => {
@@ -204,12 +249,24 @@ const data_gym_session = async (req, res) => {
     const dataGymSession = await get_gym_session();
     const { user_id } = req.session.user;
     const isMember = await findUserId(user_id);
+    console.log(isMember);
     if (isMember) {
       res.status(200).json({ dataGymSession, isMember });
+    } else {
+      res.status(200).json({ dataGymSession });
     }
-    res.status(200).json({ dataGymSession });
   } catch (err) {
     res.status(404).json({ message: err.message });
+  }
+};
+
+const is_member = async (req, res) => {
+  try {
+    const isMember = await findUserId(req.session.user.user_id);
+
+    res.status(200).json({ isMember });
+  } catch (error) {
+    res.status(404).json({ message : 'false' });
   }
 };
 
@@ -226,7 +283,19 @@ const book_session = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
-
+const cek_session = async (req, res) => {
+  try {
+    const { email } = req.session.user;
+    const dataUser = await checkUserData(email);
+    if (dataUser) {
+      res.status(200).json({ message: "session valid", dataUser });
+    } else {
+      res.status(404).json({ message: "Session invalid" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 module.exports = {
   home_page,
   post_test,
@@ -235,6 +304,10 @@ module.exports = {
   member_transaction,
   transaction_update,
   verify_email,
+  point_transaction,
   data_gym_session,
   book_session,
+  is_member,
+  cek_session,
+  member_product
 };

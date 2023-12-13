@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function UserLogin({ setSessionData }) {
+function UserLogin() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -16,37 +16,60 @@ function UserLogin({ setSessionData }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:3100/login-tweak-account",
-        formData,
-        {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3100/cek-session", {
           headers: {
             "x-api-key":
               "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
           },
           withCredentials: true,
+        });
+        if (response.status == 200) {
+          navigate("/");
         }
-      );
-      if (response.status === 200) {
-        // // Assuming response.data contains user session data
-        const userSessionData = response.data;
-
-        // // Save the session data
-        setSessionData("userSession", userSessionData);
-
-        // Navigate to the home page or another route
-        navigate("/");
+        const data = response.data;
+        console.log(data);
+      } catch (error) {
+        navigate("/login");
       }
+    };
+    fetchData();
+  }, []);
+
+  axios.defaults.withCredentials = true;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      axios
+        .post("http://localhost:3100/login-tweak-account", formData, {
+          headers: {
+            "x-api-key":
+              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
+          },
+        })
+        .then((res) => {
+          if (res.data.dataUser) {
+            Swal.fire({
+              title: 'Login Success!',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then(() => {
+              navigate("/");
+            });
+          } else {
+            alert("Terjadi Kesalahan");
+          }
+        });
     } catch (error) {
-      alert(error.message);
-      console.log(error);
+      Swal.fire({
+        title: 'Login Failed!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   };
-
 
   return (
     <div className={`${styles.loginPage}`}>

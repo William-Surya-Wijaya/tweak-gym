@@ -71,18 +71,17 @@ async function checkUserToken(usertoken) {
     },
     raw: true,
   });
-  if (userToUpdate.user_isverified == 1) {
-    return false;
+  if (userToUpdate.user_isverified == 0) {
+    await User.update(
+      { user_isverified: 1 },
+      {
+        where: {
+          veriftoken: usertoken,
+        },
+      }
+    );
   }
-  await User.update(
-    { user_isverified: 1 },
-    {
-      where: {
-        veriftoken: usertoken,
-      },
-    }
-  );
 
-  return userToUpdate;
+
 }
 module.exports = { findUserEmail, addUserData, checkUserData, checkUserToken, getDataUser };
