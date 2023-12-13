@@ -17,7 +17,11 @@ function UserRegister() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (event) => {
-    event.preventDefault();
+
+    if(handlePasswordConfirmation){
+
+    } else {
+      event.preventDefault();
 
     try {
       const response = await axios.post(
@@ -31,7 +35,7 @@ function UserRegister() {
         }
       );
 
-      if (response.status === 200) {
+      if (parseInt(response.status) === 200) {
         Swal.fire({
           title: 'Login Success!',
           icon: 'success',
@@ -41,11 +45,14 @@ function UserRegister() {
         });
       }
     } catch (error) {
+      console.log(error);
       Swal.fire({
         title: 'Login Failed!',
+        text: error.response.data.errors[0].msg,
         icon: 'error',
         confirmButtonText: 'OK',
       });
+    }
     }
   };
 
