@@ -276,7 +276,7 @@ const is_member = async (req, res) => {
       res.status(200).json({ message: isMember });
     }
   } catch (error) {
-    res.status(404).json({ message: "false" });
+    res.status(200).json({ message: false });
   }
 };
 
