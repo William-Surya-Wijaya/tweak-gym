@@ -10,7 +10,7 @@ const create_booking = async (
     user_id: id_user,
     booking_token: booking_token,
     token_isvalid: token_isvalid,
-    id_transaction_booking: id_transaction_booking,
+    id_transaction_book: id_transaction_booking,
   });
 };
 
