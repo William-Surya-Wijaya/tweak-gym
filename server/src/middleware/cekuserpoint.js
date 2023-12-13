@@ -9,3 +9,5 @@ const cekUserPoints = async (req, res, next) => {
     res.status(400).json({ message: "Point tidak mencukupi" });
   }
 };
+
+module.exports = { cekUserPoints };
