@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import {
   // ? USER PAGES
@@ -11,6 +11,7 @@ import {
   UserRegister,
   UserOrderSummary,
   UserMember,
+  UserRegisterMember,
   UserNavBar,
   UserTopBar,
 
@@ -39,7 +40,7 @@ function App() {
         {/* User Login */}
         <Route path="/login" element={
           <>
-            <UserLogin />
+            <UserLogin/>
           </>
         } />
 
@@ -56,6 +57,15 @@ function App() {
         <Route path="/membership" element={
           <>
             <UserMember />
+            <UserTopBar />
+            <UserNavBar />
+          </>
+        } />
+
+        {/* User Member */}
+        <Route path="/membership-register" element={
+          <>
+            <UserRegisterMember />
             <UserTopBar />
             <UserNavBar />
           </>

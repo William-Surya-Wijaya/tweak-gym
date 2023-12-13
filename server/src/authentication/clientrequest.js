@@ -1,5 +1,7 @@
 const verifyUserToken = (req, res, next) => {
-  const clientToken = req.session.token;
+
+  const clientToken = req.session.user.token;
+  console.log(clientToken);
   if (clientToken) {
     next();
   } else {

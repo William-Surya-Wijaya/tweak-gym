@@ -10,18 +10,25 @@ const app = express();
 const staticPathPublic = path.resolve("public");
 
 app.set("view engine", "ejs");
-app.use(cors());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
+
 app.use(
   session({
     secret: "your-secret-key",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 app.use(express.json());
 app.use(express.static(staticPathPublic));
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use("/", routes);
 
 // Start the server

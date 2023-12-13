@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 function UserRegister() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     user_email: "",
     user_password: "",
@@ -19,14 +22,30 @@ function UserRegister() {
     try {
       const response = await axios.post(
         "http://localhost:3100/register-tweak-account",
-        formData
+        formData,
+        {
+          headers: {
+            "x-api-key":
+              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
+          },
+        }
       );
 
       if (response.status === 200) {
-        alert("success");
+        Swal.fire({
+          title: 'Login Success!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          navigate("/");
+        });
       }
     } catch (error) {
-      // Tangani kesalahan
+      Swal.fire({
+        title: 'Login Failed!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   };
 
@@ -56,6 +75,30 @@ function UserRegister() {
 
       <form name="login-form" onSubmit={handleSubmit}>
         <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_name">Full Name:</label>
+          <input
+            type="text"
+            id="user_name"
+            name="user_name"
+            required
+            minLength="8"
+            value={formData.user_name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
+          <label htmlFor="user_email">Phone Number:</label>
+          <input
+            type="text"
+            id="user_phonenumb"
+            name="user_phonenumb"
+            required
+            minLength="8"
+            value={formData.user_phonenumb}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={`${styles.formGroup}`}>
           <label htmlFor="user_email">Email:</label>
           <input
             type="text"
@@ -76,30 +119,6 @@ function UserRegister() {
             required
             minLength="8"
             value={formData.user_password}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={`${styles.formGroup}`}>
-          <label htmlFor="user_email">Phone Number:</label>
-          <input
-            type="text"
-            id="user_phonenumb"
-            name="user_phonenumb"
-            required
-            minLength="8"
-            value={formData.user_phonenumb}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={`${styles.formGroup}`}>
-          <label htmlFor="user_name">Username:</label>
-          <input
-            type="text"
-            id="user_name"
-            name="user_name"
-            required
-            minLength="8"
-            value={formData.user_name}
             onChange={handleInputChange}
           />
         </div>

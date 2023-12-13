@@ -19,7 +19,7 @@ async function create_transaction(
 }
 
 async function update_transaction(TransId) {
-  try {
+  
     await MemberTransaction.update(
       {
         transaction_status: "paid",
@@ -30,9 +30,7 @@ async function update_transaction(TransId) {
         },
       }
     );
-  } catch (err) {
-    return err.message;
-  }
+  
 }
 
 const findUserTransaction = async (trans_id) => {

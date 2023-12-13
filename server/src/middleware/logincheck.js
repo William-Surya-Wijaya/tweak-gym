@@ -10,7 +10,7 @@ const dataUserLogin = async (req, res, next) => {
         next();
       } else {
         res
-          .status(400)
+          .status(404)
           .json({
             message:
               "Akun anda belum di aktivasi, silahkan cek ulang email anda",
@@ -18,12 +18,12 @@ const dataUserLogin = async (req, res, next) => {
       }
     } else {
       res
-        .status(400)
+        .status(401)
         .json({ message: "Email atau password yang anda masukan salah" });
     }
   } else {
     res
-      .status(400)
+      .status(401)
       .json({ message: "Email atau password yang anda masukan salah" });
   }
 };
