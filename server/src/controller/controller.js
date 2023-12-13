@@ -263,8 +263,14 @@ const data_gym_session = async (req, res) => {
 const is_member = async (req, res) => {
   try {
     const isMember = await findUserId(req.session.user.user_id);
+    console.log(isMember);
+    if (isMember) {
+      res.status(200).json({ message:isMember });
+      
+    }else{
+      res.status(200).json({ message:isMember });
 
-    res.status(200).json({ isMember });
+    }
   } catch (error) {
     res.status(404).json({ message : 'false' });
   }
