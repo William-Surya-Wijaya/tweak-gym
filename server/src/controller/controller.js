@@ -104,10 +104,10 @@ const login_account = async (req, res) => {
 const get_user_point = async (req,res) =>{
   try {
     // ambil email dari session
-    const email = req.session.user_email;
+    const id = req.session.user_id;
     // ambil id user 
-    const userID = await checkUserData(email);
-    const idPoint = await findPointId(userID.user_id);
+    
+    const idPoint = await findPointId(id);
     res.status(200).json({point:idPoint.ammount_point});
 
   }catch(error){
