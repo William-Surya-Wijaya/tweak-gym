@@ -101,6 +101,20 @@ const login_account = async (req, res) => {
   }
 };
 
+const get_user_point = async (req,res) =>{
+  try {
+    // ambil email dari session
+    const email = req.session.user_email;
+    // ambil id user 
+    const userID = await checkUserData(email);
+    const idPoint = await findPointId(userID.user_id);
+    res.status(200).json({point:idPoint.ammount_point});
+
+  }catch(error){
+    res.status(404).json({message:error.message})
+  }
+}
+
 const member_transaction = async (req, res) => {
   try {
     const email = req.session.user.email;
@@ -309,5 +323,6 @@ module.exports = {
   book_session,
   is_member,
   cek_session,
-  member_product
+  member_product,
+  get_user_point
 };
