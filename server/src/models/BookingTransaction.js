@@ -9,7 +9,6 @@ const BookingTransaction = sequelize.define(
     id_transaction_book: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
     },
     user_id: {
       type: DataTypes.INTEGER,

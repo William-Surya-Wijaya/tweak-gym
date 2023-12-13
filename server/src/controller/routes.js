@@ -77,6 +77,7 @@ router.post(
   limiter,
   verifyKeyMiddleware,
   verifyUserToken,
+  cekUserPoint,
   controller.book_session
 );
 router.post(

@@ -20,19 +20,25 @@ const {
   create_user_point,
   findPointId,
   update_user_point,
+  update_booking_point,
 } = require("../repositories/user_point");
 const {
   getMemberProduct,
   getMembershipPackage,
 } = require("../repositories/memb_package");
 const { createMember, findUserId } = require("../repositories/gymmember");
-const { get_gym_session } = require("../repositories/gymsession");
+const {
+  get_gym_session,
+  update_capacity,
+} = require("../repositories/gymsession");
 const sha512 = require("js-sha512");
 const {
   create_point_transaction,
   find_order,
   update_transaction_point,
 } = require("../repositories/user_point_trans");
+const { createBookingTransaction } = require("../repositories/booktrans");
+const { create_booking } = require("../repositories/gymbook");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -265,25 +271,43 @@ const is_member = async (req, res) => {
     const isMember = await findUserId(req.session.user.user_id);
     console.log(isMember);
     if (isMember) {
-      res.status(200).json({ message:isMember });
-      
-    }else{
-      res.status(200).json({ message:isMember });
-
+      res.status(200).json({ message: isMember });
+    } else {
+      res.status(200).json({ message: isMember });
     }
   } catch (error) {
-    res.status(404).json({ message : 'false' });
+    res.status(404).json({ message: "false" });
   }
 };
 
 const book_session = async (req, res) => {
   try {
-    const isMember = await findUserId(req.session.user.user_id);
+    const user_id = req.session.user;
+    const { id_gym_session, net_amount, purchase_date, transaction_status } =
+      req.body;
 
-    if (isMember) {
-    } else {
-    }
-
+    const transBook = createTransactionID("GBT");
+    console.log(
+      transBook,
+      user_id,
+      id_gym_session,
+      net_amount,
+      purchase_date,
+      transaction_status
+    );
+    // await createBookingTransaction(
+    //   transBook,
+    //   user_id,
+    //   id_gym_session,
+    //   net_amount,
+    //   purchase_date,
+    //   transaction_status
+    // );
+    // const pointData = findPointId(user_id);
+    // await update_booking_point(pointData.id_point, net_amount);
+    // await update_capacity(id_gym_session);
+    // const tokenBook = createTransactionID("TOKENBOOK");
+    // await create_booking(user_id, tokenBook, 0, transBook);
     res.status(200).json({ message: "Berhasil melakukan booking" });
   } catch (error) {
     res.status(404).json({ message: err.message });
