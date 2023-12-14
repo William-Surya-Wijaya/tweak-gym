@@ -1,5 +1,5 @@
 name : github-eslint
-run-name RUnning ESLint against source code
+run-name Running ESLint against source code
 on: [push]
 jobs:
   run-eslint:
