@@ -84,6 +84,7 @@ function UserRegister() {
       <form name="login-form" onSubmit={handleSubmit}>
         <div className={`${styles.formGroup}`}>
           <label htmlFor="user_name">Full Name:</label>
+          <p className={`${styles.smallText}`}>Minimal 8 karakter</p>
           <input
             type="text"
             id="user_name"
@@ -93,9 +94,11 @@ function UserRegister() {
             value={formData.user_name}
             onChange={handleInputChange}
           />
+          
         </div>
         <div className={`${styles.formGroup}`}>
           <label htmlFor="user_email">Phone Number:</label>
+          <p className={`${styles.smallText}`}>Minimal 8 number</p>
           <input
             type="text"
             id="user_phonenumb"
@@ -120,6 +123,7 @@ function UserRegister() {
         </div>
         <div className={`${styles.formGroup}`}>
           <label htmlFor="user_password">Password:</label>
+          <p className={`${styles.smallText}`}>Minimal mempunyai 1 UpperCase, 1 LowerCase, 1 Number, 1 Symbol</p>
           <input
             type="password"
             id="password"
@@ -132,6 +136,7 @@ function UserRegister() {
         </div>
         <div className={`${styles.formGroup}`}>
           <label htmlFor="password-confirmation">Password Confirmation:</label>
+          <p className={`${styles.smallText}`}>Samakan dengan Password</p>
           <input
             type="password"
             id="password-confirmation"

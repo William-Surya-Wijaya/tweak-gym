@@ -720,6 +720,13 @@
   outline: none;
 }
 
+.smallText{
+  font-size: 0.8em;
+  padding-bottom: 5px;
+  color: white;
+  width: 22em;
+}
+
 .loginPage .buttonLight{
   margin: 1em 0 0 0;
 }
