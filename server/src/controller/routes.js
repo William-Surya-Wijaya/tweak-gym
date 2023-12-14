@@ -1,7 +1,6 @@
 const express = require("express");
 const controller = require("./controller");
 const validator = require("../middleware/register_validation.js");
-const verifyRecaptcha = require("../middleware/verifyReCaptcha.js");
 const { dataUserLogin } = require("../middleware/logincheck.js");
 const { verifyUserToken } = require("../authentication/clientrequest.js");
 const verifyKeyMiddleware = require("../middleware/verify_key");

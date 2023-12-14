@@ -46,7 +46,6 @@ const home_page = (req, res) => {
 
 const post_test = (req, res) => {
   try {
-    const { nama, umur } = req.body;
     res.sendStatus(200);
   } catch (err) {
     console.error(err);
