@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server",
     "start": "node server.js",
-    "test":"jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -41,5 +41,8 @@
     "querystring": "^0.2.1",
     "sequelize": "^6.32.1",
     "sha512": "^0.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0"
   }
 }
