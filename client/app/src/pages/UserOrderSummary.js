@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styles from "../assets/UserStyle.module.css";
+import axios from "axios";
 
 function formatDate(dateString) {
   const options = { day: 'numeric', month: 'long' };
@@ -11,16 +12,38 @@ function formatDate(dateString) {
   return `${formattedDate} ${year}`;
 }
 
-function UserOrderSummary({sessionName, sessionStart, sessionEnd, sessionDate, sessionCapacity, sessionPrice, onClose}) {
+function UserOrderSummary({sessionId, sessionName, sessionStart, sessionEnd, sessionDate, sessionCapacity, sessionPrice, onClose}) {
   const navigate = useNavigate();
-  const { idSession } = useParams();
 
-  const [formData] = useState({
-    user_email: idSession,
-  });
+  console.log(sessionId);
 
-  const validateAndProccess = () => {
-    navigate('/');
+  const validateAndProccess = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3100/booking-session",
+        {
+          id_gym_session: sessionId,
+          net_amount: sessionPrice,
+          purchase_date: new Date().toISOString().split("T")[0],
+          transaction_status: "PAID",
+        },
+        {
+          headers: {
+            "x-api-key":
+              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        // Handle success, maybe show a success message or navigate to a different page
+        console.log("Order successful!");
+      }
+    } catch (error) {
+      console.error("Error ordering session:", error);
+      // Handle error, maybe show an error message
+    }
   };
 
   return(

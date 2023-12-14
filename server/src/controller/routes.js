@@ -43,6 +43,7 @@ router.get(
 )
 // GET USER POINT
 router.get("/get-user-point",controller.get_user_point);
+
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
   "/register-tweak-account",

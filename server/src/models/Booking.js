@@ -28,7 +28,7 @@ const Booking = sequelize.define(
       allowNull: false,
     },
     id_transaction_book: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: false,
       references: {
         model: BookingTransaction,

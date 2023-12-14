@@ -17,7 +17,11 @@ function UserRegister() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (event) => {
-    event.preventDefault();
+
+    if(handlePasswordConfirmation){
+
+    } else {
+      event.preventDefault();
 
     try {
       const response = await axios.post(
@@ -28,10 +32,11 @@ function UserRegister() {
             "x-api-key":
               "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
           },
+          withCredentials: true,
         }
       );
 
-      if (response.status === 200) {
+      if (parseInt(response.status) === 200) {
         Swal.fire({
           title: 'Login Success!',
           icon: 'success',
@@ -41,11 +46,14 @@ function UserRegister() {
         });
       }
     } catch (error) {
+      console.log(error);
       Swal.fire({
         title: 'Login Failed!',
+        text: error.response.data.errors[0].msg,
         icon: 'error',
         confirmButtonText: 'OK',
       });
+    }
     }
   };
 

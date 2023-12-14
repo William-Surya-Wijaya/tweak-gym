@@ -67,6 +67,28 @@ function UserGymSession() {
 
     fetchData();
   }, []);
+
+  const [dataMember, setDataMember] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3100/user-member-data",{
+            withCredentials: true,
+          }
+        );
+        const data = response.data;
+        console.log(data.message);
+        setDataMember(data.message);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>
@@ -96,12 +118,13 @@ function UserGymSession() {
             dataSession.dataGymSession.map((item, index) => (
               <SessionCard
                 key={index}
+                sessionId={item.id_gym_session}
                 sessionName={item.session_name}
                 sessionStart={item.session_start}
                 sessionEnd={item.session_end}
                 sessionDate={item.session_date}
                 sessionCapacity={item.session_capacity}
-                sessionPrice={item.session_price}
+                sessionPrice={dataMember ? 0 : item.session_price}
                 onClick={handleOpenModal}
                 onClose={handleCloseModal}
               />
@@ -110,6 +133,7 @@ function UserGymSession() {
       </div>
       {gymOrderModal && selectedSession && (
         <UserOrderSummary
+          sessionId={selectedSession.sessionId}
           sessionName={selectedSession.sessionName}
           sessionStart={selectedSession.sessionStart}
           sessionEnd={selectedSession.sessionEnd}

@@ -15,10 +15,13 @@ function UserNavBar() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3100/user-member-data",
+          "http://localhost:3100/user-member-data",{
+            withCredentials: true,
+          }
         );
         const data = response.data;
-        setDataMember(data);
+        console.log(data.message);
+        setDataMember(data.message);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -36,7 +39,7 @@ function UserNavBar() {
   };
 
   const handleQrButtonClick = () => {
-    if(!dataMember || dataMember.message === ''){
+    if(!dataMember){
       navigate('/membership-register');
     } else {
       navigate('/membership');
