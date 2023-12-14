@@ -116,6 +116,27 @@ const get_user_point = async (req,res) =>{
   }
 }
 
+const get_history_booking = async(req,res)=>{
+  try {
+    // ambil id user 
+    const id = req.session.user_id;
+    
+    // 
+    const dataUser = await findUserTransaction(id);
+    res.status(200).json({
+      id_transaction_book: dataUser.id_trans_book,
+      user_id: dataUser.user_id,
+      id_gym_session: dataUser.id_gym_session,
+      net_amount: dataUser.net_ammount,
+      purchase_date: dataUser.purchase_date,
+      transaction_status: dataUser.trans_status,
+    });
+
+  }catch(error){
+    res.status(404).json({message:error.message})
+  }
+}
+
 const member_transaction = async (req, res) => {
   try {
     const email = req.session.user.email;
@@ -332,5 +353,6 @@ module.exports = {
   is_member,
   cek_session,
   member_product,
-  get_user_point
+  get_user_point,
+  get_history_booking
 };

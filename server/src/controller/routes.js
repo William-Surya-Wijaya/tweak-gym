@@ -41,7 +41,13 @@ router.get(
   controller.member_product
 )
 // GET USER POINT
-router.get("/get-user-point",controller.get_user_point);
+router.get(
+  "/user-point",
+  controller.get_user_point);
+
+router.get(
+  "/history-booking",
+controller.get_history_booking);
 
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
@@ -73,6 +79,7 @@ router.post(
   "/point-transaction",
   controller.point_transaction
 )
+
 router.post(
   "/booking-session",
   limiter,
