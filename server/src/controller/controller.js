@@ -38,7 +38,7 @@ const {
   update_transaction_point,
 } = require("../repositories/user_point_trans");
 const { createBookingTransaction } = require("../repositories/booktrans");
-const { create_booking } = require("../repositories/gymbook");
+const { create_booking, getBookingMembers } = require("../repositories/gymbook");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -121,16 +121,9 @@ const get_history_booking = async(req,res)=>{
     // ambil id user 
     const id = req.session.user_id;
     
-    // 
+    // ambil databooking dari transaksi user pada dataUser
     const dataUser = await findUserTransaction(id);
-    res.status(200).json({
-      id_transaction_book: dataUser.id_trans_book,
-      user_id: dataUser.user_id,
-      id_gym_session: dataUser.id_gym_session,
-      net_amount: dataUser.net_ammount,
-      purchase_date: dataUser.purchase_date,
-      transaction_status: dataUser.trans_status,
-    });
+    res.status(200).json(dataUser.dataBooking);
 
   }catch(error){
     res.status(404).json({message:error.message})
