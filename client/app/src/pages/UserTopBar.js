@@ -18,7 +18,12 @@ function UserTopBar() {
         const data = response.data.dataUser;
         setDataSession(data);
       } catch (error) {
-        
+        console.error("Error fetching user session:", error);
+        if(response.status === 200){
+
+        }else{
+          
+        }
       }
     };
     fetchData();

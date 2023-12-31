@@ -17,10 +17,11 @@ function UserMember(sessionUser) {
           withCredentials: true,
         });
         if (response.status == 404) {
-          navigate("/login");
+          const data = response.data;
+          console.log(data);
+        }else{
+          throw new Error("Error");
         }
-        const data = response.data;
-        console.log(data);
       } catch (error) {
         navigate("/login");
       }
