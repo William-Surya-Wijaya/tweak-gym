@@ -18,13 +18,11 @@ function UserRegisterMember() {
           },
           withCredentials: true,
         });
-        if (response.status == 404) {
-          navigate("/login");
-        }
-        const data = response.data;
-        console.log(data);
+        const data = response.data.dataUser;
+        setDataSession(data);
       } catch (error) {
-        navigate("/login");
+        console.log('error');
+        navigate('/login');
       }
     };
     fetchData();
@@ -68,7 +66,9 @@ function UserRegisterMember() {
         });
         const data = response.data.dataUser;
         setDataSession(data);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchData();
