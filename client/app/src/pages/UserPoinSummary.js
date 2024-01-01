@@ -1,20 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React from "react";
+import Swal from "sweetalert2";
 import axios from "axios";
 import styles from "../assets/UserStyle.module.css";
 
-function formatDate(dateString) {
-    const options = { day: 'numeric', month: 'long' };
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const formattedDate = date.toLocaleString('id-ID', options);
-    return `${formattedDate} ${year}`;
-}
-
 function usePayment() {
-  const navigate = useNavigate();
-  const [token, setToken] = useState();
+  // eslint-disable-next-line no-undef
 
   const validateAndProcess = async (formData) => {
     try {
@@ -52,17 +42,12 @@ function usePayment() {
       }
     } catch (error) {
       console.error("Error validating and processing payment:", error);
-
-      if (error.response && error.response.status === 401) {
-        navigate("/login");
-      } else {
-        Swal.fire({
-          title: "Payment Failed!",
-          text: "Failed to process payment. Please try again.",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      }
+      Swal.fire({
+        title: "Payment Failed!",
+        text: "Failed to process payment. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -71,7 +56,6 @@ function usePayment() {
 
 function UserPoinSummary({ poinPrice, onClose }) {
   console.log("Rendering UserPoinSummary with poinPrice:", poinPrice);
-  const navigate = useNavigate();
   const { validateAndProcess } = usePayment();
 
   const handlePayment = () => {
@@ -118,6 +102,4 @@ function UserPoinSummary({ poinPrice, onClose }) {
   );
 }
 
-export {
-  UserPoinSummary,
-};
+export { UserPoinSummary };

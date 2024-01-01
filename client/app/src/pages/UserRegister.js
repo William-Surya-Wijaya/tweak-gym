@@ -18,42 +18,39 @@ function UserRegister() {
   };
   const handleSubmit = async (event) => {
 
-    if(handlePasswordConfirmation){
-
-    } else {
+    if (!handlePasswordConfirmation) {
       event.preventDefault();
+      try {
+        const response = await axios.post(
+          "http://localhost:3100/register-tweak-account",
+          formData,
+          {
+            headers: {
+              "x-api-key":
+                "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
+            },
+            withCredentials: true,
+          }
+        );
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3100/register-tweak-account",
-        formData,
-        {
-          headers: {
-            "x-api-key":
-              "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
-          },
-          withCredentials: true,
+        if (parseInt(response.status) === 200) {
+          Swal.fire({
+            title: "Login Success!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(() => {
+            navigate("/");
+          });
         }
-      );
-
-      if (parseInt(response.status) === 200) {
+      } catch (error) {
+        console.log(error);
         Swal.fire({
-          title: 'Login Success!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        }).then(() => {
-          navigate("/");
+          title: "Login Failed!",
+          text: error.response.data.errors[0].msg,
+          icon: "error",
+          confirmButtonText: "OK",
         });
       }
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        title: 'Login Failed!',
-        text: error.response.data.errors[0].msg,
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
-    }
     }
   };
 

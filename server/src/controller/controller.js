@@ -338,6 +338,24 @@ const cek_session = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+const logout = async (req, res) => {
+  try {
+    // Destroy the session
+    req.session.user.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).json({ message: "Internal Server Error" });
+      } else {
+        // Redirect or send a success response after destroying the session
+        res.status(200).json({ message: "Logout successful" });
+      }
+    });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   home_page,
   post_test,
@@ -354,4 +372,5 @@ module.exports = {
   member_product,
   get_user_point,
   get_history_booking,
+  logout,
 };

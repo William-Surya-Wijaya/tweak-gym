@@ -29,17 +29,17 @@ function UserTopBar() {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("http://localhost:3100/logout", {
+      const response = await axios.post("http://localhost:3100/logout", {
         headers: {
-          "x-api-key": "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
+          "x-api-key":
+            "6924e5a89d788bb511a821e8e6534ac278e964510c6dcaf1d33495b123659191352c0150b2584d9c709b4a13052c0664f07334789572dd0e943a3566dcc1659d",
         },
         withCredentials: true,
       });
-      if (response.status == 404) {
+      if (response.statusCode === 200) {
         navigate("/login");
-        const data = response.data;
-        console.log(data);
       }
+      console.log(response);
     } catch (error) {
       console.error("Error during logout:", error);
       navigate("/login");

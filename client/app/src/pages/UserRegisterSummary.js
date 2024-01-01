@@ -1,16 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React from "react";
+import Swal from "sweetalert2";
 import axios from "axios";
 import styles from "../assets/UserStyle.module.css";
-
-function formatDate(dateString) {
-    const options = { day: 'numeric', month: 'long' };
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const formattedDate = date.toLocaleString('id-ID', options);
-    return `${formattedDate} ${year}`;
-}
 
 function usePayment() {
   const validateAndProcess = async (formData) => {
@@ -45,7 +36,6 @@ function usePayment() {
             window.location.reload();
           },
         });
-
       }
     } catch (error) {
       Swal.fire({
@@ -66,7 +56,6 @@ function UserRegisterSummary({
   packagePrice,
   onClose,
 }) {
-  const navigate = useNavigate();
   const { validateAndProcess } = usePayment();
 
   const handlePayment = () => {
@@ -138,6 +127,4 @@ function UserRegisterSummary({
   );
 }
 
-export {
-    UserRegisterSummary,
-};
+export { UserRegisterSummary };

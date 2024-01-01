@@ -92,4 +92,6 @@ router.post(
   limiter,
   controller.transaction_update
 );
+
+router.post("/logout", controller.logout);
 module.exports = router;
