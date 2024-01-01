@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 
@@ -18,12 +18,7 @@ function UserTopBar() {
         const data = response.data.dataUser;
         setDataSession(data);
       } catch (error) {
-        console.error("Error fetching user session:", error);
-        if(response.status === 200){
-
-        }else{
-          
-        }
+        console.log('error');
       }
     };
     fetchData();

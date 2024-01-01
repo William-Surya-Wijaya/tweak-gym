@@ -43,6 +43,7 @@ function UserLogin() {
     } catch (error) {
       Swal.fire({
         title: "Login Failed!",
+        text: error.response.data.errors[0].msg,
         icon: "error",
         confirmButtonText: "OK",
       });
