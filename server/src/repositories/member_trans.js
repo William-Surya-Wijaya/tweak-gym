@@ -1,4 +1,5 @@
 const { MemberTransaction } = require("../models/");
+const { BookingTransaction } = require("../models/");
 const { GymSession } = require("../models/");
 
 async function create_transaction(
@@ -34,7 +35,7 @@ async function update_transaction(TransId) {
 
 const findUserTransaction = async (user_id) => {
   try {
-    const userData = await MemberTransaction.findAll({
+    const userData = await BookingTransaction.findAll({
       where: {
         user_id: user_id,
       },
