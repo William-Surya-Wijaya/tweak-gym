@@ -38,7 +38,7 @@ const {
   update_transaction_point,
 } = require("../repositories/user_point_trans");
 const { createBookingTransaction } = require("../repositories/booktrans");
-const { create_booking } = require("../repositories/gymbook");
+const { create_booking, getBookingMembers } = require("../repositories/gymbook");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -46,7 +46,6 @@ const home_page = (req, res) => {
 
 const post_test = (req, res) => {
   try {
-    const { nama, umur } = req.body;
     res.sendStatus(200);
   } catch (err) {
     console.error(err);
@@ -102,6 +101,34 @@ const login_account = async (req, res) => {
     console.error(err);
   }
 };
+
+const get_user_point = async (req,res) =>{
+  try {
+    // ambil email dari session
+    const id = req.session.user_id;
+    // ambil id user 
+    
+    const idPoint = await findPointId(id);
+    res.status(200).json({point:idPoint.ammount_point});
+
+  }catch(error){
+    res.status(404).json({message:error.message})
+  }
+}
+
+const get_history_booking = async(req,res)=>{
+  try {
+    // ambil id user 
+    const id = req.session.user_id;
+    
+    // ambil databooking dari transaksi user pada dataUser
+    const dataUser = await findUserTransaction(id);
+    res.status(200).json(dataUser.dataBooking);
+
+  }catch(error){
+    res.status(404).json({message:error.message})
+  }
+}
 
 const member_transaction = async (req, res) => {
   try {
@@ -318,5 +345,7 @@ module.exports = {
   book_session,
   is_member,
   cek_session,
-  member_product
+  member_product,
+  get_user_point,
+  get_history_booking
 };

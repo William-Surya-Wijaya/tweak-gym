@@ -1,7 +1,6 @@
 const express = require("express");
 const controller = require("./controller");
 const validator = require("../middleware/register_validation.js");
-const verifyRecaptcha = require("../middleware/verifyReCaptcha.js");
 const { dataUserLogin } = require("../middleware/logincheck.js");
 const { verifyUserToken } = require("../authentication/clientrequest.js");
 const verifyKeyMiddleware = require("../middleware/verify_key");
@@ -10,11 +9,10 @@ const checkIsMember = require("../middleware/memberchecker.js");
 const router = express.Router();
 
 const rateLimit = require("express-rate-limit");
-const { cekUserPoints } = require("../middleware/cekuserpoint.js");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 menit
-  max: 1000, // batas permintaan per IP
+  max: 100, // batas permintaan per IP
 });
 
 // GET Route
@@ -27,15 +25,30 @@ router.get(
   // verifyUserToken,
   controller.data_gym_session
 );
-router.get("/user-member-data", limiter, controller.is_member);
+router.get(
+  "/user-member-data",
+  limiter,
+  controller.is_member
+);
 router.get(
   "/cek-session",
   limiter,
   // verifyKeyMiddleware,
   controller.cek_session
 );
-router.get("/member-package-data", controller.member_product);
-// POST Route
+router.get(
+  "/member-package-data",
+  controller.member_product
+)
+// GET USER POINT
+router.get(
+  "/user-point",
+  controller.get_user_point);
+
+router.get(
+  "/history-booking",
+controller.get_history_booking);
+
 router.post("/test", limiter, verifyKeyMiddleware, controller.post_test);
 router.post(
   "/register-tweak-account",
@@ -62,13 +75,16 @@ router.post(
   // verifyUserToken,
   controller.member_transaction
 );
-router.post("/point-transaction", controller.point_transaction);
+router.post(
+  "/point-transaction",
+  controller.point_transaction
+)
+
 router.post(
   "/booking-session",
   limiter,
   verifyKeyMiddleware,
   verifyUserToken,
-  cekUserPoints,
   controller.book_session
 );
 router.post(
