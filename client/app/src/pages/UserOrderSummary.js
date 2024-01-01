@@ -37,12 +37,15 @@ function UserOrderSummary({sessionId, sessionName, sessionStart, sessionEnd, ses
       );
 
       if (response.status === 200) {
-        // Handle success, maybe show a success message or navigate to a different page
         console.log("Order successful!");
       }
     } catch (error) {
       console.error("Error ordering session:", error);
-      // Handle error, maybe show an error message
+      if (error.response && error.response.status === 404) {
+        console.log("Session not found");
+      } else {
+        navigate("/login");
+      }
     }
   };
 

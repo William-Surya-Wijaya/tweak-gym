@@ -51,11 +51,18 @@ function usePayment() {
         });
       }
     } catch (error) {
-      Swal.fire({
-        title: "Login Failed!",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      console.error("Error validating and processing payment:", error);
+
+      if (error.response && error.response.status === 401) {
+        navigate("/login");
+      } else {
+        Swal.fire({
+          title: "Payment Failed!",
+          text: "Failed to process payment. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     }
   };
 

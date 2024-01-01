@@ -26,11 +26,12 @@ function UserLogin() {
           },
           withCredentials: true,
         });
-        if (response.status == 200) {
-          navigate("/");
+        if (response.status == 404) {
+          const data = response.data;
+          console.log(data);
+        }else{
+          throw new Error("Error");
         }
-        const data = response.data;
-        console.log(data);
       } catch (error) {
         navigate("/login");
       }

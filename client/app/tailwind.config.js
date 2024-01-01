@@ -7,10 +7,10 @@ module.exports = {
     xs: { min: "100px", max: "480px" },
     ss: { min: "481px", max: "620px" },
     sm: { min: "621px", max: "799px" },
-    md: { max: "800px", max: "1060px" },
+    md: { min: "800px", max: "1060px" },
     lg: { min: "1061px", max: "1300px" },
-    xl: { max: "1301px", max: "1700px" },
-    xll: { max: "1701px", max: "1800px" },
+    xl: { min: "1301px", max: "1700px" },
+    xll: { min: "1701px", max: "1800px"},
   },
   colors: {
     bgPrimary: "#000000",

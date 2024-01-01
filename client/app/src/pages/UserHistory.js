@@ -1,11 +1,21 @@
 import styles from "../assets/UserStyle.module.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function UserHistory() {
-  const navigate = useNavigate();
+  const navigate = useNavigate();   
+  const [showQR, setShowQR] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
 
+  const handleShowQR = (sessionName) => {
+    setSelectedSession(sessionName);
+    setShowQR(true);
+  };
+
+  const handleCloseQR = () => {
+    setShowQR(false);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,10 +27,11 @@ function UserHistory() {
           withCredentials: true,
         });
         if (response.status == 404) {
-          navigate("/login");
+          const data = response.data;
+          console.log(data);
+        }else{
+          throw new Error("Error");
         }
-        const data = response.data;
-        console.log(data);
       } catch (error) {
         navigate("/login");
       }

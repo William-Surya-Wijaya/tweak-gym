@@ -19,11 +19,16 @@ function UserNavBar() {
             withCredentials: true,
           }
         );
+        if (response.status === 404) {
+          navigate("/login"); 
+          return;
+        }
         const data = response.data;
         console.log(data.message);
         setDataMember(data.message);
       } catch (error) {
         console.error("Error fetching data:", error);
+        navigate("/login"); 
       }
     };
 
