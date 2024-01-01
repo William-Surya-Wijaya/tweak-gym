@@ -26,25 +26,29 @@ const bookingHistory = async (user_id) => {
       where: {
         user_id: user_id,
       },
-      include: [
-        {
-          model: GymSession,
-          attributes: [
-            "id_gym_session",
-            "session_name",
-            "session_start",
-            "session_end",
-            "session_capacity",
-            "session_date",
-            "session_price",
-          ],
-          // Add any additional attributes you want to include from GymSession table
-        },
-      ],
+
       raw: true,
     });
+    const userBookingHistory = [];
+    for (const element of userData) {
+      const gymSession = await GymSession.findOne({
+        where: {
+          id_gym_session: element.id_gym_session,
+        },
+        raw: true,
+      });
 
-    return userData;
+      const bookingHistory = {
+        id_transaction_book: element.id_transaction_book,
+        session_name: gymSession.session_name,
+        session_start: gymSession.session_start,
+        session_end: gymSession.session_end,
+        session_date: gymSession.session_date,
+      };
+      userBookingHistory.push(bookingHistory);
+    }
+
+    return userBookingHistory;
   } catch (err) {
     // Handle the error appropriately
     console.error(err);

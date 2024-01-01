@@ -125,6 +125,7 @@ const get_history_booking = async (req, res) => {
   try {
     // ambil id user
     const id = req.session.user_id;
+    console.log(id);
 
     // ambil databooking dari transaksi user pada dataUser
     const dataUser = await bookingHistory(id);
