@@ -70,7 +70,7 @@ router.post(
 );
 router.post(
   "/register-tweak-member",
-  limiter,
+  // limiter,
   // verifyKeyMiddleware,
   // verifyUserToken,
   controller.member_transaction
