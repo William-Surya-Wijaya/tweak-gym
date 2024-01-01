@@ -24,4 +24,6 @@ const getBookingMembers = async (user_id) => {
   return bookingData;
 };
 
+
+
 module.exports = { create_booking, getBookingMembers };

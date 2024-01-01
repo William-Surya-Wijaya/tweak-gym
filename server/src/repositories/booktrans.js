@@ -1,4 +1,5 @@
 const { BookingTransaction } = require("../models");
+const { GymSession } = require("../models");
 
 const createBookingTransaction = async (
   id_trans_book,
@@ -19,5 +20,36 @@ const createBookingTransaction = async (
     transaction_status: trans_status,
   });
 };
+const bookingHistory = async (user_id) => {
+  try {
+    const userData = await BookingTransaction.findAll({
+      where: {
+        user_id: user_id,
+      },
+      include: [
+        {
+          model: GymSession,
+          attributes: [
+            "id_gym_session",
+            "session_name",
+            "session_start",
+            "session_end",
+            "session_capacity",
+            "session_date",
+            "session_price",
+          ],
+          // Add any additional attributes you want to include from GymSession table
+        },
+      ],
+      raw: true,
+    });
 
-module.exports = { createBookingTransaction };
+    return userData;
+  } catch (err) {
+    // Handle the error appropriately
+    console.error(err);
+    throw err;
+  }
+};
+
+module.exports = { createBookingTransaction, bookingHistory };

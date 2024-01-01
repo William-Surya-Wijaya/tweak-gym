@@ -37,7 +37,10 @@ const {
   find_order,
   update_transaction_point,
 } = require("../repositories/user_point_trans");
-const { createBookingTransaction } = require("../repositories/booktrans");
+const {
+  createBookingTransaction,
+  bookingHistory,
+} = require("../repositories/booktrans");
 const {
   create_booking,
   getBookingMembers,
@@ -124,7 +127,7 @@ const get_history_booking = async (req, res) => {
     const id = req.session.user_id;
 
     // ambil databooking dari transaksi user pada dataUser
-    const dataUser = await findUserTransaction(id);
+    const dataUser = await bookingHistory(id);
     res.status(200).json({ userHistory: dataUser });
   } catch (error) {
     res.status(404).json({ message: error.message });
