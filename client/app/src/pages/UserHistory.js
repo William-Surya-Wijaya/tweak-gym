@@ -6,7 +6,7 @@ import axios from "axios";
 /* eslint-disable */
 
 function UserHistory({}) {
-  const navigate = useNavigate();   
+  const navigate = useNavigate();
   const [showQR, setShowQR] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
 
@@ -20,7 +20,6 @@ function UserHistory({}) {
   };
 
   const [dataHistory, setDataHistory] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,21 +41,28 @@ function UserHistory({}) {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-  }, []);
 
-  return(
+    fetchData();
+  }, []); // Empty dependency array assuming you want to run this effect only once on mount
+
+  return (
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.gymSessionHeader}`}>
         <div className={`${styles.gymSessionSubTitle}`}>
           <div className={`${styles.textTitle}`}>YOUR SESSION HISTORY</div>
-          <div className={`${styles.textContent}`}>Here are the gym sessions that you booked.</div>
+          <div className={`${styles.textContent}`}>
+            Here are the gym sessions that you booked.
+          </div>
         </div>
-        <img src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg" alt="gymimage"></img>
+        <img
+          src="https://emilypost.com/client_media/images/blogs/everyday-gym.jpg"
+          alt="gymimage"
+        ></img>
       </div>
       <div className={`${styles.headerRibbon}`}>
         <div className={`${styles.ribbonText}`}>
-        BOOKED SESSION HISTORY * BOOKED SESSION HISTORY * BOOKED SESSION HISTORY * BOOKED SESSION HISTORY
+          BOOKED SESSION HISTORY * BOOKED SESSION HISTORY * BOOKED SESSION
+          HISTORY * BOOKED SESSION HISTORY
         </div>
       </div>
       <div className={`${styles.section}`}>
