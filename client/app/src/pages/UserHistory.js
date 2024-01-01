@@ -1,6 +1,8 @@
 import styles from "../assets/UserStyle.module.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { HistoryCard } from './components/HistoryCard';
+import { UserQR } from './UserQR';
 import axios from "axios";
 
 /* eslint-disable */
@@ -43,7 +45,7 @@ function UserHistory({}) {
     };
 
     fetchData();
-  }, []); // Empty dependency array assuming you want to run this effect only once on mount
+  }, []);
 
   return (
     <div className={`${styles.userDashboard}`}>
@@ -68,24 +70,28 @@ function UserHistory({}) {
       <div className={`${styles.section}`}>
         <div className={`${styles.gymSessionGalerry}`}>
           {dataHistory &&
-            dataHistory.dataGymSession &&
-            Array.isArray(dataHistory.dataGymSession) &&
-            dataHistory.dataGymSession.length > 0 &&
-            dataHistory.dataGymSession.map((item, index) => (
+            dataHistory.userHistory &&
+            Array.isArray(dataHistory.userHistory) &&
+            dataHistory.userHistory.length > 0 &&
+            dataHistory.userHistory.map((item, index) => (
               <HistoryCard
-                key={index}
-                sessionId={item.id_gym_session}
+                sessionId={item.id_transaction_book}
                 sessionName={item.session_name}
                 sessionStart={item.session_start}
                 sessionEnd={item.session_end}
                 sessionDate={item.session_date}
-                sessionCapacity={item.session_capacity}
-                onClick={handleOpenModal}
-                onClose={handleCloseModal}
+                onClick={handleShowQR}
+                onClose={handleCloseQR}
               />
             ))}
         </div>
       </div>
+      {showQR && selectedSession && (
+        <UserQR
+          sessionId={selectedSession.sessionId}
+          onClose={handleCloseQR}
+        />
+      )}
       <div className={`${styles.footer}`}>
         <div>&copy; 2023 Tweak Gym. All rights reserved.</div>
       </div>
