@@ -16,10 +16,9 @@ function UserDashboard() {
           withCredentials: true,
         });
         if (response.status == 404) {
+          navigate("/login");
           const data = response.data;
           console.log(data);
-        }else{
-          throw new Error("Error");
         }
       } catch (error) {
         navigate("/login");
@@ -27,6 +26,7 @@ function UserDashboard() {
     };
     fetchData();
   }, []);
+
   return (
     <div className={`${styles.userDashboard}`}>
       <div className={`${styles.dashboardHeader}`}>
