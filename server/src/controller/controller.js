@@ -124,7 +124,8 @@ const get_user_point = async (req, res) => {
 const get_history_booking = async (req, res) => {
   try {
     // ambil id user
-    const id = req.session.user_id;
+    console.log(req.session.user);
+    const id = req.session.user.user_id;
     console.log(id);
 
     // ambil databooking dari transaksi user pada dataUser
