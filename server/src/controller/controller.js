@@ -116,19 +116,18 @@ const get_user_point = async (req,res) =>{
   }
 }
 
-const get_history_booking = async(req,res)=>{
+const get_history_booking = async (req, res) => {
   try {
-    // ambil id user 
+    // ambil id user
     const id = req.session.user_id;
-    
+
     // ambil databooking dari transaksi user pada dataUser
     const dataUser = await findUserTransaction(id);
-    res.status(200).json(dataUser.dataBooking);
-
-  }catch(error){
-    res.status(404).json({message:error.message})
+    res.status(200).json({ historyBooking: dataUser });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-}
+};
 
 const member_transaction = async (req, res) => {
   try {
@@ -329,6 +328,7 @@ const cek_session = async (req, res) => {
       res.status(404).json({ message: "Session invalid" });
     }
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ message: error.message });
   }
 };
