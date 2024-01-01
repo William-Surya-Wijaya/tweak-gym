@@ -123,7 +123,7 @@ const get_history_booking = async(req,res)=>{
     
     // ambil databooking dari transaksi user pada dataUser
     const dataUser = await findUserTransaction(id);
-    res.status(200).json(dataUser.dataBooking);
+    res.status(200).json({ userHistory: dataUser });
 
   }catch(error){
     res.status(404).json({message:error.message})
