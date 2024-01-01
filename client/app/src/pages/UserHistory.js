@@ -16,6 +16,7 @@ function UserHistory() {
   const handleCloseQR = () => {
     setShowQR(false);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {

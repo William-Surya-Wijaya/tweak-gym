@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../assets/UserStyle.module.css";
 import axios from "axios";
 
-function UserMember(sessionUser) {
+function UserMember() {
   const navigate = useNavigate();
 
   useEffect(() => {

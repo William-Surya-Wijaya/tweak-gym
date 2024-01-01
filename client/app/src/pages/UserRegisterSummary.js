@@ -13,9 +13,6 @@ function formatDate(dateString) {
 }
 
 function usePayment() {
-  const navigate = useNavigate();
-  const [token, setToken] = useState();
-
   const validateAndProcess = async (formData) => {
     try {
       const response = await axios.post(
