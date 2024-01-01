@@ -38,7 +38,10 @@ const {
   update_transaction_point,
 } = require("../repositories/user_point_trans");
 const { createBookingTransaction } = require("../repositories/booktrans");
-const { create_booking, getBookingMembers } = require("../repositories/gymbook");
+const {
+  create_booking,
+  getBookingMembers,
+} = require("../repositories/gymbook");
 
 const home_page = (req, res) => {
   res.render("home");
@@ -102,33 +105,31 @@ const login_account = async (req, res) => {
   }
 };
 
-const get_user_point = async (req,res) =>{
+const get_user_point = async (req, res) => {
   try {
     // ambil email dari session
     const id = req.session.user_id;
-    // ambil id user 
-    
+    // ambil id user
+
     const idPoint = await findPointId(id);
-    res.status(200).json({point:idPoint.ammount_point});
-
-  }catch(error){
-    res.status(404).json({message:error.message})
+    res.status(200).json({ point: idPoint.ammount_point });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-}
+};
 
-const get_history_booking = async(req,res)=>{
+const get_history_booking = async (req, res) => {
   try {
-    // ambil id user 
+    // ambil id user
     const id = req.session.user_id;
-    
+
     // ambil databooking dari transaksi user pada dataUser
     const dataUser = await findUserTransaction(id);
     res.status(200).json({ userHistory: dataUser });
-
-  }catch(error){
-    res.status(404).json({message:error.message})
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-}
+};
 
 const member_transaction = async (req, res) => {
   try {
@@ -347,5 +348,5 @@ module.exports = {
   cek_session,
   member_product,
   get_user_point,
-  get_history_booking
+  get_history_booking,
 };
