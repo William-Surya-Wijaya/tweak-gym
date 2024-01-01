@@ -1,26 +1,40 @@
 import styles from "../assets/UserStyle.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserPoinSummary } from './UserPoinSummary';
 
 function UserPoin() {
   const [gymOrderModal, setShowModal] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
 
-  const handleOpenModal = (event) => {  
-    const sessionData = {
-      poinPrice: event.currentTarget.dataset.poinprice,
-      onClose: handleCloseModal,
-    };
-  
-    console.log('sessionData:', sessionData);
-  
-    setSelectedSession(sessionData);
-    setShowModal(true);
-  };  
+  const handleOpenModal = async (event) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3100/", 
+        {
+          headers: {
+            "x-api-key": "your-api-key",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const sessionData = {
+        poinPrice: event.currentTarget.dataset.poinprice,
+        onClose: handleCloseModal,
+      };
+      setSelectedSession(sessionData);
+      setShowModal(true);
+
+    } catch (error) {
+      console.error("Error opening modal:", error);
+      setError("Failed to open modal. Please try again.");
+    }
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
 
   return(
     <div className={`${styles.userDashboard}`}>
