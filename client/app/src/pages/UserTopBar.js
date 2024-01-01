@@ -36,7 +36,7 @@ function UserTopBar() {
         },
         withCredentials: true,
       });
-      if (response.statusCode === 200) {
+      if (response.status === 200) {
         navigate("/login");
       }
       console.log(response);

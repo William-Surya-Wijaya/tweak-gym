@@ -341,20 +341,22 @@ const cek_session = async (req, res) => {
 const logout = async (req, res) => {
   try {
     // Destroy the session
-    req.session.user.destroy((err) => {
+    req.session.destroy((err) => {
       if (err) {
-        console.error("Error destroying session:", err);
-        res.status(500).json({ message: "Internal Server Error" });
+        // Handle the error if there's a problem destroying the session
+        console.error("Error destroying session: ", err);
+        res.status(500).send("Error logging out");
       } else {
-        // Redirect or send a success response after destroying the session
-        res.status(200).json({ message: "Logout successful" });
+        // Send a success response
+        res.status(200).json({ message: "Berhasil logout" });
       }
     });
-  } catch (error) {
-    console.error("Error during logout:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error logging out");
   }
 };
+
 
 module.exports = {
   home_page,
